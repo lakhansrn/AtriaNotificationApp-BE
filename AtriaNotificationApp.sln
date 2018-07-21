@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.API", "AtriaNotificationApp\AtriaNotificationApp.API\AtriaNotificationApp.API.csproj", "{D26DE329-5A5B-4642-8150-656D5F1BC9F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.BL", "AtriaNotificationApp\AtriaNotificationApp.BL\AtriaNotificationApp.BL.csproj", "{21656E70-D645-4313-A51A-D03D8CB7F48D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.DAL", "AtriaNotificationApp\AtriaNotificationApp.DAL\AtriaNotificationApp.DAL.csproj", "{4120D0B5-4736-462A-BA11-3B80740FE2FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.Common", "AtriaNotificationApp\AtriaNotificationApp.Common\AtriaNotificationApp.Common.csproj", "{EB6D66AE-89D2-4278-A73B-6F7FB7255024}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3C80074-63C8-41F6-BE73-BC3147ABF508}
+	EndGlobalSection
+EndGlobal

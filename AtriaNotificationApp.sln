@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.API", "AtriaNotificationApp\AtriaNotificationApp.API\AtriaNotificationApp.API.csproj", "{D26DE329-5A5B-4642-8150-656D5F1BC9F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.API", "AtriaNotificationApp.API\AtriaNotificationApp.API.csproj", "{60A76254-3B0C-4D8D-9628-52A577EA9EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.BL", "AtriaNotificationApp\AtriaNotificationApp.BL\AtriaNotificationApp.BL.csproj", "{21656E70-D645-4313-A51A-D03D8CB7F48D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.BL", "AtriaNotificationApp.BL\AtriaNotificationApp.BL.csproj", "{4949D772-70C7-433E-8508-6673E4DB7C72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.DAL", "AtriaNotificationApp\AtriaNotificationApp.DAL\AtriaNotificationApp.DAL.csproj", "{4120D0B5-4736-462A-BA11-3B80740FE2FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.Common", "AtriaNotificationApp.Common\AtriaNotificationApp.Common.csproj", "{65663230-D559-4311-A871-25A8460C47F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.Common", "AtriaNotificationApp\AtriaNotificationApp.Common\AtriaNotificationApp.Common.csproj", "{EB6D66AE-89D2-4278-A73B-6F7FB7255024}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.DAL", "AtriaNotificationApp.DAL\AtriaNotificationApp.DAL.csproj", "{64EAA56D-E7CF-4636-90FC-8144593BF74A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D26DE329-5A5B-4642-8150-656D5F1BC9F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21656E70-D645-4313-A51A-D03D8CB7F48D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4120D0B5-4736-462A-BA11-3B80740FE2FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB6D66AE-89D2-4278-A73B-6F7FB7255024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A76254-3B0C-4D8D-9628-52A577EA9EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A76254-3B0C-4D8D-9628-52A577EA9EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A76254-3B0C-4D8D-9628-52A577EA9EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A76254-3B0C-4D8D-9628-52A577EA9EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4949D772-70C7-433E-8508-6673E4DB7C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4949D772-70C7-433E-8508-6673E4DB7C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4949D772-70C7-433E-8508-6673E4DB7C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4949D772-70C7-433E-8508-6673E4DB7C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65663230-D559-4311-A871-25A8460C47F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65663230-D559-4311-A871-25A8460C47F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65663230-D559-4311-A871-25A8460C47F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65663230-D559-4311-A871-25A8460C47F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64EAA56D-E7CF-4636-90FC-8144593BF74A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64EAA56D-E7CF-4636-90FC-8144593BF74A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64EAA56D-E7CF-4636-90FC-8144593BF74A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64EAA56D-E7CF-4636-90FC-8144593BF74A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

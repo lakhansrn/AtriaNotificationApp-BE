@@ -27,7 +27,7 @@ namespace AtriaNotificationApp.API.Controllers
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
-        {
+        { 
         }
 
         // PUT api/values/5

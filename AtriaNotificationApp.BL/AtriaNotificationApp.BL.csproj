@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DomainModels\" />
-    <Folder Include="Services\" />
+    <Compile Remove="DomainModels\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="DomainModels\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="DomainModels\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>

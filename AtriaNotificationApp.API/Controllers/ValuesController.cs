@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AtriaNotificationApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtriaNotificationApp.API.Controllers
@@ -10,24 +11,33 @@ namespace AtriaNotificationApp.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        private static List<Student> students = new List<Student>();
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Student>> Get()
         {
-            return new string[] { "atria1", "atria2" };
+            return students;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Student> Get(int id)
         {
-            return "value";
+            var foundStudent = students.FirstOrDefault(x => x.StudentID == id);
+            if(foundStudent == null)
+            {
+                return NotFound();
+            }
+            return foundStudent;
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
-        { 
+        public void Post([FromBody] Student value)
+        {
+            students.Add(value);
         }
 
         // PUT api/values/5

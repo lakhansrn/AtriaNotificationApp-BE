@@ -60,11 +60,9 @@ namespace AtriaNotificationApp.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Atria Notification API v1");
                 c.RoutePrefix = string.Empty;
             });
-
-            app.UseMvc();
-
             app.UseCors(builder =>
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseMvc();
         }
     }
 }

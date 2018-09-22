@@ -12,18 +12,18 @@ namespace AtriaNotificationApp.API.Controllers
     public class ValuesController : ControllerBase
     {
 
-        private static List<Student> students = new List<Student>();
+        private static List<StudentDto> students = new List<StudentDto>();
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Student>> Get()
+        public ActionResult<IEnumerable<StudentDto>> Get()
         {
             return students;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<Student> Get(int id)
+        public ActionResult<StudentDto> Get(int id)
         {
             var foundStudent = students.FirstOrDefault(x => x.StudentID == id);
             if(foundStudent == null)
@@ -35,7 +35,7 @@ namespace AtriaNotificationApp.API.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] Student value)
+        public void Post([FromBody] StudentDto value)
         {
             students.Add(value);
         }

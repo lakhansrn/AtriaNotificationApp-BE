@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\**" />
-    <Compile Remove="Repositories\**" />
-    <EmbeddedResource Remove="Entities\**" />
-    <EmbeddedResource Remove="Repositories\**" />
-    <None Remove="Entities\**" />
-    <None Remove="Repositories\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />
   </ItemGroup>

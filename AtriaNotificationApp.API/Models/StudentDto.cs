@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.API.Models
 {
-    public class Student
+    public class StudentDto
     {
         public int StudentID { get; set; }
 

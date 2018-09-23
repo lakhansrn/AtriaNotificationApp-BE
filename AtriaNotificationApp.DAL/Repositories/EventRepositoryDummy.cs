@@ -59,7 +59,7 @@ namespace AtriaNotificationApp.DAL.Repositories
                 EventName = "TechVistara",
                 Description = "lorem impsi",
                 ShowAsBanner = true,
-                EventBanner = "https://images.pexels.com/photos/261909/pexels-photo-261909.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+                EventBanner = "https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
                 Announcements = new List<Announcement>()
                {
                    new Announcement()
@@ -93,7 +93,7 @@ namespace AtriaNotificationApp.DAL.Repositories
                 EventName = "Go Green",
                 Description = "lorem impsi",
                 ShowAsBanner = false,
-                EventBanner = "https://images.pexels.com/photos/261909/pexels-photo-261909.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+                EventBanner = "https://images.pexels.com/photos/239886/pexels-photo-239886.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
                 Announcements = new List<Announcement>()
                {
                    new Announcement()

@@ -27,10 +27,11 @@ namespace AtriaNotificationApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            });
+                {
+                    options.AddPolicy("AllowSpecificOrigin",
+                        builder => builder.WithOrigins("https://atrianotifications.azurewebsites.net"
+                        ,"http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+                });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -51,6 +52,9 @@ namespace AtriaNotificationApp.API
             {
                 app.UseHsts();
             }
+
+            // Shows UseCors with named policy.
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseHttpsRedirection();
 

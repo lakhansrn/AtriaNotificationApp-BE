@@ -48,6 +48,13 @@ namespace AtriaNotificationApp.DAL.Repositories
                        Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
                        Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
                        PostedDate=DateTime.Parse("2017-01-16")
+                   },
+                   new Announcement()
+                   {
+                       Title ="web workshop",
+                       Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
+                       Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
+                       PostedDate=DateTime.Parse("2017-01-16")
                    }
                }
             };
@@ -82,6 +89,13 @@ namespace AtriaNotificationApp.DAL.Repositories
                        Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
                        Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
                        PostedDate=DateTime.Parse("2017-01-16")
+                   },
+                   new Announcement()
+                   {
+                       Title ="angular workshop",
+                       Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
+                       Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
+                       PostedDate=DateTime.Parse("2017-01-16")
                    }
                }
             };
@@ -113,6 +127,20 @@ namespace AtriaNotificationApp.DAL.Repositories
                    new Announcement()
                    {
                        Title ="android workshop",
+                       Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
+                       Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
+                       PostedDate=DateTime.Parse("2017-01-16")
+                   },
+                   new Announcement()
+                   {
+                       Title ="React workshop",
+                       Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
+                       Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
+                       PostedDate=DateTime.Parse("2017-01-16")
+                   },
+                   new Announcement()
+                   {
+                       Title ="japanese workshop",
                        Img="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&h=350",
                        Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, cupiditate.",
                        PostedDate=DateTime.Parse("2017-01-16")

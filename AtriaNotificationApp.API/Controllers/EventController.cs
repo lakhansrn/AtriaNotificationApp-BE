@@ -24,9 +24,9 @@ namespace AtriaNotificationApp.API.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<EventDto>> Get()
+        public async Task<ActionResult<IEnumerable<EventDto>>> Get()
         {
-            var events = eventProviderService.GetAllValidEvents();
+            var events = await eventProviderService.GetAllValidEvents();
 
             var eventDtos = new List<EventDto>();
             foreach (var item in events)
@@ -44,12 +44,13 @@ namespace AtriaNotificationApp.API.Controllers
                     });
                 }
 
-                eventDtos.Add(new EventDto() {
+                eventDtos.Add(new EventDto()
+                {
                     EventName = item.EventName,
                     Description = item.Description,
                     EventBanner = item.EventBanner,
                     ShowAsBanner = item.ShowAsBanner,
-                    Announcements= announcements
+                    Announcements = announcements
                 });
             }
             return eventDtos;

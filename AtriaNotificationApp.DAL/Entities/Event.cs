@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,5 +20,14 @@ namespace AtriaNotificationApp.DAL.Entities
         public string Description { get; set; }
 
         public bool ShowAsBanner { get; set; }
+
+        // private IEnumerator GetEnumerator()
+        // {
+        //     List<Event> events = new List<Event>();
+        //     foreach (var item in events)
+        //     {
+        //         yield return item;
+        //     }
+        // }
     }
 }

@@ -5,6 +5,7 @@ using AtriaNotificationApp.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.BL.Services
 {
@@ -14,12 +15,12 @@ namespace AtriaNotificationApp.BL.Services
 
         public EventProviderService()
         {
-            eventRepository = new EventRepositoryDummy();
+            eventRepository = new EventAggregateRepository();
         }
 
-        public IEnumerable<Event> GetAllValidEvents()
+        public async Task<IEnumerable<Event>> GetAllValidEvents()
         {
-            var eventRoots = eventRepository.GetAllEventRoots();
+            var eventRoots = await eventRepository.GetAllEventRoots();
             var events = new List<Event>();
             foreach (var item in eventRoots)
             {
@@ -36,12 +37,13 @@ namespace AtriaNotificationApp.BL.Services
                     });
                 }
 
-                var @event = new Event() {
+                var @event = new Event()
+                {
                     EventName = item.Event.EventName,
                     EventBanner = item.Event.EventBanner,
                     Announcements = announcements,
                     Description = item.Event.Description,
-                    ShowAsBanner=item.Event.ShowAsBanner
+                    ShowAsBanner = item.Event.ShowAsBanner
                 };
                 events.Add(@event);
             }

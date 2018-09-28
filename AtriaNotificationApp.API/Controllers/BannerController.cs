@@ -24,21 +24,22 @@ namespace AtriaNotificationApp.API.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<BannerDto>> Get()
+        public async Task<ActionResult<IEnumerable<BannerDto>>> Get()
         {
-            var events = eventProviderService.GetAllValidEvents().Where(x=>x.ShowAsBanner).ToList();
+            var events = eventProviderService.GetAllValidEvents().Result.Where(x => x.ShowAsBanner).ToList();
             var bannerDtos = new List<BannerDto>();
             var count = 0;
 
             foreach (var item in events)
             {
-                bannerDtos.Add(new BannerDto(){
-                        ImageUrl = item.EventBanner,
-                        Title = item.EventName,
-                        ID = count++
+                bannerDtos.Add(new BannerDto()
+                {
+                    ImageUrl = item.EventBanner,
+                    Title = item.EventName,
+                    ID = count++
                 });
             }
-           
+
             return bannerDtos;
         }
     }

@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.DAL.Interfaces
 {
     public interface IEventAggregateRepository
     {
-        IEnumerable<EventAggregateRoot> GetAllEventRoots();
+        Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots();
+
 
     }
 }

@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.BL.Interfaces
 {
     public interface IEventProviderService
     {
-        IEnumerable<Event> GetAllValidEvents();
+        Task<IEnumerable<Event>> GetAllValidEvents();
     }
 }

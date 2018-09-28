@@ -10,6 +10,7 @@ namespace AtriaNotificationApp.DAL.Interfaces
     {
         Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots();
 
+        Task<string> AddEvent(Event @event);
 
     }
 }

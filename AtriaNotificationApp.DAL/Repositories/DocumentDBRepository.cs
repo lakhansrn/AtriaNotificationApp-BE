@@ -15,8 +15,8 @@ namespace AtriaNotificationApp.DAL.Repositories
 
         private readonly string Endpoint = "https://lakhan.documents.azure.com:443/";
         private readonly string Key = "8AphYJMXMGQmdkT6FZF7kZYVXqkxvIMM6xzgL9nr66P1zvOa1hFKOzw5UZp3sS98S0iZzF9S4DG9QTNa976IOQ==";
-        private readonly string DatabaseId = "ToDoList";
-        private readonly string CollectionId = "Items";
+        private readonly string DatabaseId = "AtriaNotificationDb";
+        private readonly string CollectionId = "Models";
         private DocumentClient client;
 
         public DocumentDBRepository()

@@ -55,5 +55,31 @@ namespace AtriaNotificationApp.API.Controllers
             }
             return eventDtos;
         }
+
+        [HttpPost]
+        public async Task<ActionResult<string>> Add(EventDto item)
+        {
+            var announcements = new List<AtriaNotificationApp.BL.Models.Announcement>();
+
+            foreach (var announcement in item.Announcements)
+            {
+                announcements.Add(new AtriaNotificationApp.BL.Models.Announcement(){
+                    Description = announcement.Description,
+                        Img = announcement.Img,
+                        PostedDate = announcement.PostedDate,
+                        Title = announcement.Title
+                });
+            }    
+            var selectedEvent = new AtriaNotificationApp.BL.Models.Event()
+                {
+                    EventName = item.EventName,
+                    EventBanner = item.EventBanner,
+                    Announcements = announcements,
+                    Description = item.Description,
+                    ShowAsBanner = item.ShowAsBanner
+                };
+
+                return await eventProviderService.AddEvent(selectedEvent);
+        }
     }
 }

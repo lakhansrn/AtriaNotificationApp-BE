@@ -9,5 +9,7 @@ namespace AtriaNotificationApp.BL.Interfaces
     public interface IEventProviderService
     {
         Task<IEnumerable<Event>> GetAllValidEvents();
+
+        Task<string> AddEvent(Event @event);
     }
 }

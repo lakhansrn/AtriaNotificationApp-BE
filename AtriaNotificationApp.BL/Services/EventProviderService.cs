@@ -49,5 +49,31 @@ namespace AtriaNotificationApp.BL.Services
             }
             return events;
         }
+
+        public async Task<string> AddEvent(Event item)
+        {
+
+            var announcements = new List<AtriaNotificationApp.DAL.Entities.Announcement>();
+
+            foreach (var announcement in item.Announcements)
+            {
+                announcements.Add(new AtriaNotificationApp.DAL.Entities.Announcement(){
+                    Description = announcement.Description,
+                        Img = announcement.Img,
+                        PostedDate = announcement.PostedDate,
+                        Title = announcement.Title
+                });
+            }    
+            var selectedEvent = new AtriaNotificationApp.DAL.Entities.Event()
+                {
+                    EventName = item.EventName,
+                    EventBanner = item.EventBanner,
+                    Announcements = announcements,
+                    Description = item.Description,
+                    ShowAsBanner = item.ShowAsBanner
+                };
+
+            return await eventRepository.AddEvent(selectedEvent);
+        }
     }
 }

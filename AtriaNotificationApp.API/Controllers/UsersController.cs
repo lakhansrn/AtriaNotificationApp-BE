@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AtriaNotificationApp.API.Controllers
 {
-   [Authorize]
+   [Authorize(Roles="announcer")]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase

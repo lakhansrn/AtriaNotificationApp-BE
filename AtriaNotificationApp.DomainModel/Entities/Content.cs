@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtriaNotificationApp.BL.Models
+namespace AtriaNotificationApp.DAL.Entities
 {
-    public class Content
+    public class Content : EntityBase
     {
         public Content()
         {
@@ -23,5 +23,6 @@ namespace AtriaNotificationApp.BL.Models
         public bool IsApproved { get; set; }
 
         public bool IsActive { get; set; }
+
     }
 }

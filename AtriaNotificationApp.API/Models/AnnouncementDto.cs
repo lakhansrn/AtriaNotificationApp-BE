@@ -13,6 +13,8 @@ namespace AtriaNotificationApp.API.Models
             Content = new List<ContentDto>();
         }
 
+        public Guid Id { get ; set ; }
+
         public string Title { get; set; }
 
         public string Img { get; set; }

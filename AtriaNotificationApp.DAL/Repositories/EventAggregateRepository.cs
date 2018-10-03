@@ -12,6 +12,11 @@ namespace AtriaNotificationApp.DAL.Repositories
     {
         public async Task<string> AddEvent(Event @event)
         {
+            @event.InitId();
+            @event.Announcements.ForEach(x=>{x.InitId();
+            x.Content.ForEach(y => y.InitId());
+            });
+
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
             var document  = await eventRepo.CreateItemAsync(@event);
             return JsonConvert.SerializeObject(document);

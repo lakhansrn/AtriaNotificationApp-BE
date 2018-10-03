@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtriaNotificationApp.BL.Models
+namespace AtriaNotificationApp.DAL.Entities
 {
-    public class Announcer
+    public class Announcer : EntityBase
     {
         public string Name { get; set; }
 

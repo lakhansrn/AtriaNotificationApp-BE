@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AtriaNotificationApp.API.Models;
 using AtriaNotificationApp.BL.Interfaces;
-using AtriaNotificationApp.BL.Models;
 using AtriaNotificationApp.BL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +25,12 @@ namespace AtriaNotificationApp.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BannerDto>>> Get()
         {
-            var events = eventProviderService.GetAllValidEvents().Result.Where(x => x.ShowAsBanner).ToList();
+            var events = await eventProviderService.GetAllValidEvents();
+
             var bannerDtos = new List<BannerDto>();
             var count = 0;
 
-            foreach (var item in events)
+            foreach (var item in events.Where(x => x.ShowAsBanner).ToList())
             {
                 bannerDtos.Add(new BannerDto()
                 {

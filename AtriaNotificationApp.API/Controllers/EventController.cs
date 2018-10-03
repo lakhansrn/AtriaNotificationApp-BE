@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AtriaNotificationApp.API.Models;
 using AtriaNotificationApp.BL.Interfaces;
-using AtriaNotificationApp.BL.Models;
 using AtriaNotificationApp.BL.Services;
+using AtriaNotificationApp.DAL.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,12 @@ namespace AtriaNotificationApp.API.Controllers
     public class EventController : ControllerBase
     {
         private readonly IEventProviderService eventProviderService;
+        private readonly IMapper _mapper;
 
-        public EventController()
+        public EventController(IMapper mapper)
         {
             eventProviderService = new EventProviderService();
+            _mapper=mapper;
         }
 
         // GET api/values
@@ -28,96 +31,15 @@ namespace AtriaNotificationApp.API.Controllers
         {
             var events = await eventProviderService.GetAllValidEvents();
 
-            var eventDtos = new List<EventDto>();
-            foreach (var item in events)
-            {
-                var announcements = new List<AnnouncementDto>();
-
-                foreach (var announcement in item.Announcements)
-                {
-                    var contents = new List<ContentDto>();
-
-                    foreach (var content in announcement.Content)
-                    {
-                        var announcer = new AnnouncerDto()
-                        {
-                            Name = content.PostedBy.Name,
-                            Department = content.PostedBy.Department,
-                            Email = content.PostedBy.Email,
-                            Pno = content.PostedBy.Pno
-                        };
-                        contents.Add(new ContentDto()
-                        {
-                            Title = content.Title,
-                            Posted = content.Posted,
-                            Image = content.Image,
-                            PostedBy = announcer,
-                            Description = content.Description,
-                        });
-                    }
-                    announcements.Add(new AnnouncementDto()
-                    {
-                        Description = announcement.Description,
-                        Img = announcement.Img,
-                        PostedDate = announcement.PostedDate,
-                        Title = announcement.Title,
-                        Content = contents
-                    });
-                }
-
-                eventDtos.Add(new EventDto()
-                {
-                    EventName = item.EventName,
-                    Description = item.Description,
-                    EventBanner = item.EventBanner,
-                    ShowAsBanner = item.ShowAsBanner,
-                    Announcements = announcements
-                });
-            }
+            List<EventDto> eventDtos = _mapper.Map<List<EventDto>>(events);
+      
             return eventDtos;
         }
 
         [HttpPost]
         public async Task<ActionResult<string>> Add(EventDto item)
         {
-            var announcements = new List<AtriaNotificationApp.BL.Models.Announcement>();
-
-            foreach (var announcement in item.Announcements)
-            {
-                var contents = new List<AtriaNotificationApp.BL.Models.Content>();
-
-                foreach (var content in announcement.Content)
-                {
-                    var announcer = new AtriaNotificationApp.BL.Models.Announcer() {
-                        Name = content.PostedBy.Name,
-                        Department = content.PostedBy.Department,
-                        Email = content.PostedBy.Email,
-                        Pno = content.PostedBy.Pno
-                    };
-                    contents.Add(new AtriaNotificationApp.BL.Models.Content() {
-                        Title = content.Title,
-                        Posted = content.Posted,
-                        Image = content.Image,
-                        PostedBy = announcer,
-                        Description = content.Description,
-                    });
-                }
-                announcements.Add(new AtriaNotificationApp.BL.Models.Announcement(){
-                    Description = announcement.Description,
-                    Img = announcement.Img,
-                    PostedDate = announcement.PostedDate,
-                    Title = announcement.Title,
-                    Content = contents
-                });
-            }    
-            var selectedEvent = new AtriaNotificationApp.BL.Models.Event()
-            {
-                EventName = item.EventName,
-                EventBanner = item.EventBanner,
-                Announcements = announcements,
-                Description = item.Description,
-                ShowAsBanner = item.ShowAsBanner
-            };
+            var selectedEvent = _mapper.Map<Event>(item);
 
             return await eventProviderService.AddEvent(selectedEvent);
         }

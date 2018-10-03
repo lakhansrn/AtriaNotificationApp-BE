@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AtriaNotificationApp.API.Services;
 using AtriaNotificationApp.API.Settings;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,8 +67,9 @@ namespace AtriaNotificationApp.API
                         builder => builder.WithOrigins("https://atrianotifications.azurewebsites.net"
                         ,"http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
                 });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper();
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -110,6 +112,7 @@ namespace AtriaNotificationApp.API
             app.UseAuthentication();
             
             app.UseMvc();
+     
         }
     }
 }

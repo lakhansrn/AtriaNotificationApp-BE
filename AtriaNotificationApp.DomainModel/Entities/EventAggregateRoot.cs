@@ -1,12 +1,11 @@
-﻿using AtriaNotificationApp.Common.Interfaces;
-using AtriaNotificationApp.DAL.Interfaces;
+﻿using AtriaNotificationApp.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AtriaNotificationApp.DAL.Entities
 {
-    public class EventAggregateRoot : IEventAggregateRoot
+    public class EventAggregateRoot : IAggregateRoot
     {
 
         public EventAggregateRoot(Event @event)

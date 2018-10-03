@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtriaNotificationApp.BL.Models
+namespace AtriaNotificationApp.DAL.Entities
 {
-    public class Announcement
+    public class Announcement : EntityBase
     {
         public Announcement()
         {
@@ -20,5 +20,6 @@ namespace AtriaNotificationApp.BL.Models
         public string Description { get; set; }
 
         public DateTime PostedDate { get; set; }
+        
     }
 }

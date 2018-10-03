@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AtriaNotificationApp.Common\AtriaNotificationApp.Common.csproj" />
+    <ProjectReference Include="..\AtriaNotificationApp.DomainModel\AtriaNotificationApp.DomainModel.csproj" />
   </ItemGroup>
 
 </Project>

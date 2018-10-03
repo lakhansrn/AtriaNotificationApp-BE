@@ -12,6 +12,9 @@ namespace AtriaNotificationApp.API.Models
         {
             Announcements = new List<AnnouncementDto>();
         }
+
+        public Guid Id { get ; set ; }
+
         public List<AnnouncementDto> Announcements { get; set; }
 
         [JsonProperty("event_name")]

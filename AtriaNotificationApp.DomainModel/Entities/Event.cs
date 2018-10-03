@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtriaNotificationApp.BL.Models
+namespace AtriaNotificationApp.DAL.Entities
 {
-    public class Event
+    public class Event : EntityBase
     {
         public Event()
         {
             Announcements = new List<Announcement>();
         }
+
+
         public List<Announcement> Announcements { get; set; }
 
         public string EventName { get; set; }
@@ -19,5 +22,14 @@ namespace AtriaNotificationApp.BL.Models
         public string Description { get; set; }
 
         public bool ShowAsBanner { get; set; }
+
+        // private IEnumerator GetEnumerator()
+        // {
+        //     List<Event> events = new List<Event>();
+        //     foreach (var item in events)
+        //     {
+        //         yield return item;
+        //     }
+        // }
     }
 }

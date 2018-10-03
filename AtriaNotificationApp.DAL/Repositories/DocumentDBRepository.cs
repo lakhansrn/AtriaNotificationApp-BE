@@ -8,6 +8,8 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using AtriaNotificationApp.DAL.Interfaces;
+using AtriaNotificationApp.DAL.Entities;
+
 namespace AtriaNotificationApp.DAL.Repositories
 {
     public class DocumentDBRepository<T> : IDocumentDBRepository<T> where T : class
@@ -16,7 +18,7 @@ namespace AtriaNotificationApp.DAL.Repositories
         private readonly string Endpoint = "https://lakhan.documents.azure.com:443/";
         private readonly string Key = "8AphYJMXMGQmdkT6FZF7kZYVXqkxvIMM6xzgL9nr66P1zvOa1hFKOzw5UZp3sS98S0iZzF9S4DG9QTNa976IOQ==";
         private readonly string DatabaseId = "AtriaNotificationDb";
-        private readonly string CollectionId = "Models";
+        private readonly string CollectionId = typeof(T).Name;
         private DocumentClient client;
 
         public DocumentDBRepository()

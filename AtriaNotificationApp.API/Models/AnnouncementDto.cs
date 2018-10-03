@@ -8,6 +8,11 @@ namespace AtriaNotificationApp.API.Models
 {
     public class AnnouncementDto
     {
+        public AnnouncementDto()
+        {
+            Content = new List<ContentDto>();
+        }
+
         public string Title { get; set; }
 
         public string Img { get; set; }
@@ -16,6 +21,8 @@ namespace AtriaNotificationApp.API.Models
 
         [JsonProperty("posted")]
         public DateTime PostedDate { get; set; }
+
+        public List<ContentDto> Content { get; set; }
 
     }
 }

@@ -28,12 +28,32 @@ namespace AtriaNotificationApp.BL.Services
 
                 foreach (var announcement in item.Event.Announcements)
                 {
+                    var contents = new List<Content>();
+
+                    foreach (var content in announcement.Content)
+                    {
+                        var announcer = new Announcer() {
+                            Name = content.PostedBy.Name,
+                            Department = content.PostedBy.Department,
+                            Email = content.PostedBy.Email,
+                            Pno = content.PostedBy.Pno
+                        };
+                        contents.Add(new Content()
+                        {
+                            Title = content.Title,
+                            Posted = content.Posted,
+                            Image = content.Image,
+                            PostedBy = announcer,
+                            Description = content.Description,
+                        });
+                    }
                     announcements.Add(new Announcement()
                     {
                         Description = announcement.Description,
                         Img = announcement.Img,
                         PostedDate = announcement.PostedDate,
-                        Title = announcement.Title
+                        Title = announcement.Title,
+                        Content = contents
                     });
                 }
 
@@ -57,11 +77,33 @@ namespace AtriaNotificationApp.BL.Services
 
             foreach (var announcement in item.Announcements)
             {
+                var contents = new List<AtriaNotificationApp.DAL.Entities.Content>();
+
+                foreach (var content in announcement.Content)
+                {
+                    var announcer = new AtriaNotificationApp.DAL.Entities.Announcer()
+                    {
+                        Name = content.PostedBy.Name,
+                        Department = content.PostedBy.Department,
+                        Email = content.PostedBy.Email,
+                        Pno = content.PostedBy.Pno
+                    };
+                    contents.Add(new AtriaNotificationApp.DAL.Entities.Content()
+                    {
+                        Title = content.Title,
+                        Posted = content.Posted,
+                        Image = content.Image,
+                        PostedBy = announcer,
+                        Description = content.Description,
+                    });
+                }
+
                 announcements.Add(new AtriaNotificationApp.DAL.Entities.Announcement(){
                     Description = announcement.Description,
-                        Img = announcement.Img,
-                        PostedDate = announcement.PostedDate,
-                        Title = announcement.Title
+                    Img = announcement.Img,
+                    PostedDate = announcement.PostedDate,
+                    Title = announcement.Title,
+                    Content = contents
                 });
             }    
             var selectedEvent = new AtriaNotificationApp.DAL.Entities.Event()

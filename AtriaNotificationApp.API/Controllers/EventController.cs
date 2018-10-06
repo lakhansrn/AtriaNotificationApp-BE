@@ -37,11 +37,20 @@ namespace AtriaNotificationApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> Add(EventDto item)
+        public async Task<ActionResult<Event>> Add(EventDto item)
         {
             var selectedEvent = _mapper.Map<Event>(item);
 
             return await eventProviderService.AddEvent(selectedEvent);
+        }
+
+        [HttpPost]
+        [Route("AddMultiple")]
+        public async Task<IEnumerable<Event>> AddMultiple(IEnumerable<EventDto> items)
+        {
+            var selectedEvent = _mapper.Map<IEnumerable<Event>>(items);
+
+            return await eventProviderService.AddEvents(selectedEvent);
         }
 
     }

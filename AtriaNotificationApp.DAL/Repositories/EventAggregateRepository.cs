@@ -10,7 +10,7 @@ namespace AtriaNotificationApp.DAL.Repositories
 {
     public class EventAggregateRepository : IEventAggregateRepository
     {
-        public async Task<string> AddEvent(Event @event)
+        public async Task<Event> AddEvent(Event @event)
         {
             @event.InitId();
             @event.Announcements.ForEach(x=>{x.InitId();
@@ -18,8 +18,24 @@ namespace AtriaNotificationApp.DAL.Repositories
             });
 
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            var document  = await eventRepo.CreateItemAsync(@event);
-            return JsonConvert.SerializeObject(document);
+            var result =  await eventRepo.CreateItemAsync(@event);
+            return result;
+        }
+
+        public async Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events)
+        {
+            foreach (var @event in events)
+            {
+                @event.InitId();
+                @event.Announcements
+                .ForEach(x=>{x.InitId();
+                             x.Content.ForEach(y => y.InitId());
+                            });
+            }
+
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            var result =  await eventRepo.CreateItemsAsync(events);
+            return result;
         }
 
         public async Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots()

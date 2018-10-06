@@ -10,6 +10,7 @@ namespace AtriaNotificationApp.BL.Interfaces
     {
         Task<IEnumerable<Event>> GetAllValidEvents();
 
-        Task<string> AddEvent(Event @event);
+        Task<Event> AddEvent(Event @event);
+        Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events);
     }
 }

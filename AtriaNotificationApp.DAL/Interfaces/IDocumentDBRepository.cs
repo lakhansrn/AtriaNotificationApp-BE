@@ -9,11 +9,14 @@ namespace AtriaNotificationApp.DAL.Interfaces
     public interface IDocumentDBRepository<T> where T : class
     {
 
-        Task<Document> CreateItemAsync(T item);
-        Task DeleteItemAsync(string id);
-        Task<T> GetItemAsync(string id);
+        Task<T> CreateItemAsync(T item);
+
+        Task<IEnumerable<T>> CreateItemsAsync(IEnumerable<T> items);
+
+        Task DeleteItemAsync(Guid id);
+        Task<T> GetItemAsync(Guid id);
         Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate);
-        Task<Document> UpdateItemAsync(string id, T item);
+        Task<T> UpdateItemAsync(Guid id, T item);
 
     }
 }

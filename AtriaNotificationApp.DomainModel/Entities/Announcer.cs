@@ -5,7 +5,8 @@ using System.Text;
 namespace AtriaNotificationApp.DAL.Entities
 {
     public class Announcer : EntityBase
-    {
+    {   
+
         public string Name { get; set; }
 
         public string Department { get; set; }

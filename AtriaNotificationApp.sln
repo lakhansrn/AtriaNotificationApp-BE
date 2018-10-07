@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.DAL", "AtriaNotificationApp.DAL\AtriaNotificationApp.DAL.csproj", "{64EAA56D-E7CF-4636-90FC-8144593BF74A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtriaNotificationApp.Tests", "AtriaNotificationApp.Tests\AtriaNotificationApp.Tests.csproj", "{B0E2FE0B-F947-442A-88BA-DFEEA65FEFEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.Tests", "AtriaNotificationApp.Tests\AtriaNotificationApp.Tests.csproj", "{B0E2FE0B-F947-442A-88BA-DFEEA65FEFEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtriaNotificationApp.DomainModel", "AtriaNotificationApp.DomainModel\AtriaNotificationApp.DomainModel.csproj", "{822D8DC4-80DA-499C-8240-91EB25272C67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B0E2FE0B-F947-442A-88BA-DFEEA65FEFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E2FE0B-F947-442A-88BA-DFEEA65FEFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0E2FE0B-F947-442A-88BA-DFEEA65FEFEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822D8DC4-80DA-499C-8240-91EB25272C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822D8DC4-80DA-499C-8240-91EB25272C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822D8DC4-80DA-499C-8240-91EB25272C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822D8DC4-80DA-499C-8240-91EB25272C67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

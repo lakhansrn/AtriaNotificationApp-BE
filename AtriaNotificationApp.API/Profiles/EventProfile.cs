@@ -12,8 +12,8 @@ namespace AtriaNotificationApp.API.Profiles
              CreateMap<EventDto,Event>();
              CreateMap<Announcement,AnnouncementDto>();
              CreateMap<AnnouncementDto,Announcement>();
-             CreateMap<Announcement,ContentDto>();
-             CreateMap<ContentDto,Announcement>();
+             CreateMap<Content,ContentDto>();
+             CreateMap<ContentDto,Content>();
         }
     }
 }

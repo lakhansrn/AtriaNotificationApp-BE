@@ -12,17 +12,29 @@ namespace AtriaNotificationApp.BL.Services
 {
     public class AnnouncementProviderService: IAnnouncementProviderService
     {
-        private readonly IAnnouncementAggregateRepository announcementAggregateRepository;
+        private readonly IEventAggregateRepository eventAggregateRepository;
 
         public AnnouncementProviderService()
         {
-            announcementAggregateRepository = new AnnouncementAggregateRepository();
+            eventAggregateRepository = new EventAggregateRepository();
         }
+
         public async Task<IEnumerable<Content>> GetContentsAsync(Guid guid)
         {
-            var contents = await announcementAggregateRepository.GetContents(guid);
+            var events = await eventAggregateRepository.GetEventsByAnnouncmentID(guid);
+            var validEvents = events.Select(e => e.Event.Announcements.FirstOrDefault(a => a.Id == guid))
+                              .Select(a => a.Content);
+            List<Content> contents = new List<Content>();            
+            
+            foreach (var vcontents in validEvents)
+            {
+                foreach(var content in vcontents)
+                {
+                    contents.Add(content); 
+                }
+            }         
 
-            return contents.ToList().Select(a => a.Content);
+            return contents;
         }
     }
 }

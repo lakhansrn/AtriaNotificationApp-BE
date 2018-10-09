@@ -10,6 +10,10 @@ namespace AtriaNotificationApp.DAL.Entities
 
         public EventAggregateRoot(Event @event)
         {
+            if(@event == null)
+            {
+                throw new InvalidOperationException("Event cannot be null ofr the root");
+            }
             this.Event = @event;
         }
 

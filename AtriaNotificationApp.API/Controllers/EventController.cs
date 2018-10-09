@@ -18,10 +18,13 @@ namespace AtriaNotificationApp.API.Controllers
     {
         private readonly IEventProviderService eventProviderService;
         private readonly IMapper _mapper;
+         private readonly IAnnouncementProviderService announcementProviderService;
+
 
         public EventController(IMapper mapper)
         {
             eventProviderService = new EventProviderService();
+            announcementProviderService = new AnnouncementProviderService();
             _mapper=mapper;
         }
 
@@ -51,6 +54,14 @@ namespace AtriaNotificationApp.API.Controllers
             var selectedEvent = _mapper.Map<IEnumerable<Event>>(items);
 
             return await eventProviderService.AddEvents(selectedEvent);
+        }
+
+        [HttpGet("Announcement/{guid}/Content")]
+        public async Task<ActionResult<List<ContentDto>>> GetContentsAsync(Guid guid)
+        {
+            var contents = await announcementProviderService.GetContentsAsync(guid);
+            List<ContentDto> contentDtos = _mapper.Map<List<ContentDto>>(contents);
+            return contentDtos;
         }
 
     }

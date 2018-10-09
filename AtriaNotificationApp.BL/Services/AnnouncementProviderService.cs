@@ -22,19 +22,9 @@ namespace AtriaNotificationApp.BL.Services
         public async Task<IEnumerable<Content>> GetContentsAsync(Guid guid)
         {
             var events = await eventAggregateRepository.GetEventsByAnnouncmentID(guid);
-            var validEvents = events.Select(e => e.Event.Announcements.FirstOrDefault(a => a.Id == guid))
-                              .Select(a => a.Content);
-            List<Content> contents = new List<Content>();            
+            var validAnnouncement =  events.Event.Announcements.FirstOrDefault(a => a.Id == guid);
             
-            foreach (var vcontents in validEvents)
-            {
-                foreach(var content in vcontents)
-                {
-                    contents.Add(content); 
-                }
-            }         
-
-            return contents;
+            return validAnnouncement.Content;
         }
     }
 }

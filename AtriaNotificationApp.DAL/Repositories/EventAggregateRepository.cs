@@ -60,25 +60,19 @@ namespace AtriaNotificationApp.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<EventAggregateRoot>> GetEventsByAnnouncmentID(Guid guid)
+        public async Task<EventAggregateRoot> GetEventsByAnnouncmentID(Guid guid)
         {
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
             ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
             try
             {
                 var events = await eventRepo.GetItemsAsync(x => x.Announcements.Any(y => y.Id == guid));
-                
-                foreach (var item in events)
-                {
-                    roots.Add(new EventAggregateRoot(item));
-                }
-                return roots;
+                return new EventAggregateRoot(events.FirstOrDefault());
             }
             catch (Exception m)
             {
-                List<EventAggregateRoot> noRootFound = new List<EventAggregateRoot>();
                 Console.WriteLine(m.Message);
-                return noRootFound;
+                return null;
             }            
         }
     }

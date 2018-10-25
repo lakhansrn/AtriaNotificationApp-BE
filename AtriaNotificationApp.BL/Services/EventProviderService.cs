@@ -26,6 +26,13 @@ namespace AtriaNotificationApp.BL.Services
             return eventRoots.ToList().Select(x=>x.Event);
         }
 
+        public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
+        {
+            var eventRoots = await eventRepository.AddContent(event_guid, announcement_guid, content);
+
+            return eventRoots;
+        }
+
         public async Task<Event> AddEvent(Event item)
         {
 

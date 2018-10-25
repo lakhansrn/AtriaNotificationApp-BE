@@ -1,5 +1,6 @@
 using AtriaNotificationApp.DAL.Entities;
 using AtriaNotificationApp.DAL.Interfaces;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,42 @@ namespace AtriaNotificationApp.DAL.Repositories
                 Console.WriteLine(m.Message);
                 return null;
             }            
+        }
+
+        public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
+        {
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
+            try
+            {
+                var event1 = await eventRepo.GetItemAsync(event_guid); 
+                
+                List<Announcement> updated_announcement = new List<Announcement>();
+
+                foreach (var announcement in event1.Announcements)
+                {
+                    if (announcement.Id == announcement_guid)
+                    {                       
+                        List<Content> updated_content = announcement.Content.Append(new Content() { Description = content.Description, Id = Guid.NewGuid(), Image = content.Image, IsActive = content.IsActive, IsApproved = content.IsApproved, Posted = DateTime.Now, PostedBy = content.PostedBy, Title = content.Title }).ToList();    
+                        updated_announcement.Add(new Announcement() { Content = updated_content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                    }
+                    else
+                    {
+                        updated_announcement.Add(new Announcement() { Content = announcement.Content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                    }
+                }
+
+                event1.Announcements = updated_announcement;
+
+                var res = eventRepo.UpdateItemAsync(event_guid, event1);
+
+                return await res;
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.Message);
+                return null;
+            }
         }
     }
 }

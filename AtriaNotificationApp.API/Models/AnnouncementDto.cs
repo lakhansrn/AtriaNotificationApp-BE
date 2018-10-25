@@ -10,7 +10,7 @@ namespace AtriaNotificationApp.API.Models
     {
         public AnnouncementDto()
         {
-            Content = new List<ContentDto>();
+            //Content = new List<ContentDto>();
         }
 
         public Guid Id { get ; set ; }
@@ -24,7 +24,7 @@ namespace AtriaNotificationApp.API.Models
         [JsonProperty("posted")]
         public DateTime PostedDate { get; set; }
 
-        public List<ContentDto> Content { get; set; }
+        //public List<ContentDto> Content { get; set; }
 
     }
 }

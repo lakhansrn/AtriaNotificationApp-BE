@@ -47,6 +47,14 @@ namespace AtriaNotificationApp.API.Controllers
             return await eventProviderService.AddEvent(selectedEvent);
         }
 
+        [HttpPost("{event_guid}/Announcement/{announcement_guid}/Content")]
+        public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
+        {
+            var event1 = await eventProviderService.AddContent(event_guid, announcement_guid, content);
+            return event1;
+        }
+
+
         [HttpPost]
         [Route("AddMultiple")]
         public async Task<IEnumerable<Event>> AddMultiple(IEnumerable<EventDto> items)

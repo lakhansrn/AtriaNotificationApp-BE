@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
+using MongoDB.Driver;
 
 namespace AtriaNotificationApp.DAL.Interfaces
 {

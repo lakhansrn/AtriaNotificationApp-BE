@@ -112,5 +112,52 @@ namespace AtriaNotificationApp.DAL.Repositories
                 return null;
             }
         }
+
+        public async Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content)
+        {
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
+            try
+            {
+                var event1 = await eventRepo.GetItemAsync(event_guid);
+
+                List<Announcement> updated_announcement = new List<Announcement>();
+
+                foreach (var announcement in event1.Announcements)
+                {
+                    if (announcement.Id == announcement_guid)
+                    {
+                        List<Content> updated_content = new List<Content>();
+                        foreach (Content dbcontent in announcement.Content)
+                        {
+                            if (dbcontent.Id == content_id)
+                            {
+                                updated_content.Add(content);
+                            }
+                            else
+                            {
+                                updated_content.Add(dbcontent);
+                            }
+                        }
+                        updated_announcement.Add(new Announcement() { Content = updated_content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                    }
+                    else
+                    {
+                        updated_announcement.Add(new Announcement() { Content = announcement.Content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                    }
+                }
+
+                event1.Announcements = updated_announcement;
+
+                var res = eventRepo.UpdateItemAsync(event_guid, event1);
+
+                return await res;
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.Message);
+                return null;
+            }
+        }
     }
 }

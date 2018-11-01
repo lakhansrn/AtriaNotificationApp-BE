@@ -13,5 +13,6 @@ namespace AtriaNotificationApp.BL.Interfaces
         Task<Event> AddEvent(Event @event);
         Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events);
         Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content);
+        Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content);
     }
 }

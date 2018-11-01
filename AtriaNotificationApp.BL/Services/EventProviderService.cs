@@ -33,6 +33,13 @@ namespace AtriaNotificationApp.BL.Services
             return eventRoots;
         }
 
+        public async Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content)
+        {
+            var eventRoots = await eventRepository.UpdateContent(event_guid, announcement_guid, content_id, content);
+
+            return eventRoots;
+        }
+
         public async Task<Event> AddEvent(Event item)
         {
 

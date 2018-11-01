@@ -54,6 +54,12 @@ namespace AtriaNotificationApp.API.Controllers
             return event1;
         }
 
+        [HttpPut("{event_guid}/Announcement/{announcement_guid}/Content/{content_id}")]
+        public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content)
+        {
+            var event1 = await eventProviderService.UpdateContent(event_guid, announcement_guid, content_id, content);
+            return event1;
+        }
 
         [HttpPost]
         [Route("AddMultiple")]

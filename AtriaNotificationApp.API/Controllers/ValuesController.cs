@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AtriaNotificationApp.API.Models;
+using AtriaNotificationApp.Common.Interfaces;
+using AtriaNotificationApp.Common.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtriaNotificationApp.API.Controllers
@@ -50,6 +52,21 @@ namespace AtriaNotificationApp.API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+         // POST api/values
+        [HttpPost("api/sendMail")]
+        public IActionResult SendMail([FromBody]  MailTestModel value)
+        {
+            IMailService mailService =new MailService();
+            try{
+            mailService.SendMail(new List<string>(){value.To},value.Subject,value.Body);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500,ex);
+            }
+            return Ok();
         }
     }
 }

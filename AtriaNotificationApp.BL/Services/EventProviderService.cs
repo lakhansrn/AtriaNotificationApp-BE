@@ -50,5 +50,17 @@ namespace AtriaNotificationApp.BL.Services
         {
             return await eventRepository.AddEvents(events);
         }
-    }
+
+		public async Task<Event> AddAnnouncement(Guid guid, Announcement announcement)
+		{
+			var eventRoots = await eventRepository.AddAnnouncement(guid, announcement);
+
+			return eventRoots;
+		}
+
+		public Task<Event> UpdateAnnouncement(Guid guid, Guid announcment_guid, Announcement announcement)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -159,5 +159,31 @@ namespace AtriaNotificationApp.DAL.Repositories
                 return null;
             }
         }
-    }
+
+		public async Task<Event> AddAnnouncement(Guid event_guid, Announcement announcement)
+		{
+			announcement.InitId();
+			DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+			try
+			{
+				var event1 = await eventRepo.GetItemAsync(event_guid);
+
+				if (event1.Announcements == null)
+				{
+					event1.Announcements = new List<Announcement>();
+
+				}
+
+				event1.Announcements.Add(announcement);
+			
+				var res = await eventRepo.UpdateItemAsync(event_guid, event1);
+				return res;	
+			}
+			catch (Exception m)
+			{
+				Console.WriteLine(m.Message);
+				return null;
+			}
+		}
+	}
 }

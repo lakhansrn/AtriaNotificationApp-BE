@@ -6,18 +6,21 @@ using AtriaNotificationApp.DAL.Entities;
 
 namespace AtriaNotificationApp.DAL.Interfaces
 {
-    public interface IEventAggregateRepository
-    {
-        Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots();
+	public interface IEventAggregateRepository
+	{
+		Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots();
 
-        Task<Event> AddEvent(Event @event);
+		Task<Event> AddEvent(Event @event);
 
-        Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events);
+		Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events);
 
-        Task<EventAggregateRoot> GetEventsByAnnouncmentID(Guid guid);
+		Task<EventAggregateRoot> GetEventsByAnnouncmentID(Guid guid);
 
-        Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content);
+		Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content);
 
-        Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content);
-    }
+		Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content);
+
+		Task<Event> AddAnnouncement(Guid event_guid, Announcement announcement);
+
+	}
 }

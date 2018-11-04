@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+
+
 namespace AtriaNotificationApp.DAL.Entities
 {
     public class Content : EntityBase

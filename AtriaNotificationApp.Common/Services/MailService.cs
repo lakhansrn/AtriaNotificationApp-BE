@@ -23,6 +23,7 @@ namespace AtriaNotificationApp.Common.Services
                 
                 mail.Subject = subject;
                 mail.Body = body;
+                mail.IsBodyHtml=true;
                 //Attachment attachment = new Attachment(filename);
                 //mail.Attachments.Add(attachment);
  

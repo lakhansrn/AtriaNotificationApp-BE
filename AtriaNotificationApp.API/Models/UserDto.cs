@@ -1,6 +1,6 @@
 namespace AtriaNotificationApp.API.Models
 {
-   public class User
+   public class UserDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -8,7 +8,8 @@ namespace AtriaNotificationApp.API.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
-
+        public string Department { get; set; }
+        public int Pno { get; set; }
         public string Role { get; set; }
     }
 }

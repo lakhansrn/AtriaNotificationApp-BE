@@ -4,26 +4,41 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using AtriaNotificationApp.API.Models;
 using AtriaNotificationApp.API.Settings;
+using AtriaNotificationApp.DAL.Entities;
+using AtriaNotificationApp.DAL.Interfaces;
+using AtriaNotificationApp.DAL.Repositories;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace AtriaNotificationApp.API.Services
 {
     public class UserService :IUserService
     {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
+        private List<UserDto> _users = new List<UserDto>
         { 
-            new User { Id = 1, FirstName = "Test", LastName = "User", Email = "test", Password = "test", Role="announcer" } 
+            new UserDto { Id = 1, FirstName = "Test", LastName = "User", Email = "test", Password = "test", Role="announcer" } 
         };
 
         private readonly AppSettings _appSettings;
+        private readonly IUserAggregateRepository userRepository;
 
         public UserService(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
+            userRepository = new UserAggregateRepository();
+        }
+
+        public bool asf(string s1, string s2)
+        {
+            var pwd = new PasswordService();
+            bool isVerified = pwd.VerifyHashedPassword(s1, s2);
+
+            return isVerified;
         }
 
 /// <summary>
@@ -32,12 +47,16 @@ namespace AtriaNotificationApp.API.Services
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <returns></returns>
-        public User Authenticate(string email, string password)
+        public async Task<User> Authenticate(string email, string password)
         {
-            var user = _users.SingleOrDefault(x => x.Email == email && x.Password == password);
+            var userDetails = await userRepository.Authenticate(email, password);
+            User user = userDetails;
+            var pwd = new PasswordService();
+            var hashedPassword = user.Password;
+            bool isVerified = pwd.VerifyHashedPassword(hashedPassword, password);
 
-            // return null if user not found
-            if (user == null)
+            // return null if password is not correct
+            if (!isVerified)
                 return null;
 
             // authentication successful so generate jwt token
@@ -48,7 +67,7 @@ namespace AtriaNotificationApp.API.Services
                 Subject = new ClaimsIdentity(new Claim[] 
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role,user.Role)
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -62,13 +81,29 @@ namespace AtriaNotificationApp.API.Services
             return user;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserDto> GetAll()
         {
             // return users without passwords
             return _users.Select(x => {
                 x.Password = null;
                 return x;
             });
+        }
+
+        public Task<string> checkIfUserExists(string email, int pno)
+        {
+            var user = userRepository.CheckIfUserExists(email, pno);
+
+            return user;
+        }
+
+        public Task<User> RegisterUser(User user)
+        {
+            var pwd = new PasswordService();
+            var password = user.Password;
+            user.Password = pwd.HashPassword(password);
+            var userDetails = userRepository.RegisterUser(user);
+            return userDetails;
         }
     }
 }

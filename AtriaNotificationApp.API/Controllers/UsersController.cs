@@ -56,7 +56,7 @@ namespace AtriaNotificationApp.API.Controllers
             var toEmail = result.Email;
             var id = result.Id;
             var mail = new ValuesController();
-            mail.SendMail(new MailTestModel() { To = toEmail, Subject = "Announcer Registration", Body = $"Register using the following link http://localhost:4200/announcerRegistration?id={id}" });
+            mail.SendMail(new MailTestModel() { To = toEmail, Subject = "Announcer Registration", Body = $"Register using the following link https://atrianotifications.azurewebsites.net/announcerRegistration?id={id}" });
             return Ok(result);
         }
 

@@ -11,10 +11,6 @@ namespace AtriaNotificationApp.API.Services
     public class PasswordService
     {
         
-        private readonly PasswordHasherCompatibilityMode _compatibilityMode;
-        private readonly int _iterCount;
-
-       
         public virtual string HashPassword(string password)
         {
             byte[] salt;

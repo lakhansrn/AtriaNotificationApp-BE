@@ -47,6 +47,29 @@ namespace AtriaNotificationApp.API.Controllers
             return await eventProviderService.AddEvent(selectedEvent);
         }
 
+        [HttpPost("{eventid}/Announcement")]
+        public async Task<ActionResult<Event>> AddAnnouncement(Guid eventid, Announcement announcement)
+        {
+            var selectedEvent = _mapper.Map<Announcement>(announcement);
+
+            return await eventProviderService.AddAnnouncement(eventid, announcement);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Event>> UpdateEvent(EventDto item)
+        {
+            var selectedEvent = _mapper.Map<Event>(item);
+
+            return await eventProviderService.UpdateEvent(selectedEvent);
+        }
+
+        [HttpPut("{eventid}/Announcement")]
+        public async Task<ActionResult<Announcement>> UpdateAnnouncement(Guid eventid, Announcement announcement)
+        {
+
+            return await eventProviderService.UpdateAnnouncement(eventid, announcement);
+        }
+
         [HttpPost("{event_guid}/Announcement/{announcement_guid}/Content")]
         public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
         {

@@ -14,5 +14,7 @@ namespace AtriaNotificationApp.DAL.Entities
         public string Department { get; set; }
         public int Pno { get; set; }
         public string Role { get; set; }
+        public Guid ReportsTo { get; set; }
+
     }
 }

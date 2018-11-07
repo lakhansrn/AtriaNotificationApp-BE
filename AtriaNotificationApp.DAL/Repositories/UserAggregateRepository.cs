@@ -31,6 +31,15 @@ namespace AtriaNotificationApp.DAL.Repositories
             return userDetails;
         }
 
+        public async Task<User> GetUserAsync(Guid userid)
+        {
+            DocumentDBRepository<User> userRepo = new DocumentDBRepository<User>();
+            var userDetails = await userRepo.GetItemAsync(userid);
+            if (userDetails == null)
+                return null;
+            return userDetails;
+        }
+
         public async Task<User> Authenticate(string email, string password)
         {
             DocumentDBRepository<User> userRepo = new DocumentDBRepository<User>();

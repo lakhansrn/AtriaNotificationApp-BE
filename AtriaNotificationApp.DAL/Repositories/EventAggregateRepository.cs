@@ -40,6 +40,19 @@ namespace AtriaNotificationApp.DAL.Repositories
             return result;
         }
 
+        public async Task<Event> AddAnnouncement(Guid eventid, Announcement announcement)
+        {
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+
+            Event event1 = await eventRepo.GetItemAsync(eventid);
+            announcement.InitId();
+
+            event1.Announcements.Add(announcement);
+
+            var result = await eventRepo.UpdateItemAsync(eventid, event1);
+            return result;
+        }
+
         public async Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots()
         {
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
@@ -59,6 +72,44 @@ namespace AtriaNotificationApp.DAL.Repositories
                 Console.WriteLine(m.Message);
                 return noRootFound;
             }
+        }
+
+        public async Task<Event> UpdateEvent(Event @event)
+        {
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+
+            Event event1 = await eventRepo.GetItemAsync(@event.Id);
+
+
+            event1.EventName = @event.EventName;
+            event1.EventBanner = @event.EventBanner;
+            event1.Description = @event.Description;
+            event1.ShowAsBanner = @event.ShowAsBanner;
+
+            Event updatedEvent = await eventRepo.UpdateItemAsync(event1.Id, event1);
+
+            return updatedEvent;
+        }
+
+        public async Task<Event> UpdateAnnouncement(Guid eventid, Announcement announcement)
+        {
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            IEnumerable<Event> events = new List<Event>();
+
+            events = await eventRepo.GetItemsAsync(x => x.Id == eventid);
+
+            Event to_be_updated_event = events.FirstOrDefault(x => x.Id == eventid);
+
+            Announcement tobeUpdatedAnnouncement = to_be_updated_event.Announcements.FirstOrDefault(x => x.Id == announcement.Id);
+            tobeUpdatedAnnouncement.Title = announcement.Title;
+            tobeUpdatedAnnouncement.PostedDate = DateTime.Now;
+            tobeUpdatedAnnouncement.Img = announcement.Img;
+            tobeUpdatedAnnouncement.Description = announcement.Description;
+
+            to_be_updated_event.Announcements.FirstOrDefault(x => x.Id == announcement.Id).Equals(tobeUpdatedAnnouncement);
+            Event updatedEvent = await eventRepo.UpdateItemAsync(to_be_updated_event.Id, to_be_updated_event);
+
+            return updatedEvent;
         }
 
         public async Task<EventAggregateRoot> GetEventsByAnnouncmentID(Guid guid)

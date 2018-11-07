@@ -14,6 +14,12 @@ namespace AtriaNotificationApp.DAL.Interfaces
 
         Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events);
 
+        Task<Event> AddAnnouncement(Guid eventid, Announcement announcements);
+
+        Task<Event> UpdateEvent(Event @event);
+
+        Task<Event> UpdateAnnouncement(Guid eventid, Announcement announcement);
+
         Task<EventAggregateRoot> GetEventsByAnnouncmentID(Guid guid);
 
         Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content);

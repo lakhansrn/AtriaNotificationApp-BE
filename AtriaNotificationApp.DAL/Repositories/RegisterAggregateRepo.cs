@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.DAL.Repositories
 {
-    public class RegisterAggregateRoot: IRegisterAggregateRoot
+    public class RegisterAggregateRepo: IRegisterAggregateRepo
     {
-        public async Task<Register> RegisterAnnouncer(string email, Register registerDetails)
+        public async Task<Register> RegisterUser(Register registerDetails)
         {
             DocumentDBRepository<Register> registerRepo = new DocumentDBRepository<Register>();
             registerDetails.InitId();

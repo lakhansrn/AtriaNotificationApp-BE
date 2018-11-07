@@ -26,6 +26,27 @@ namespace AtriaNotificationApp.BL.Services
             return eventRoots.ToList().Select(x=>x.Event);
         }
 
+        public async Task<Event> AddAnnouncement(Guid eventid, Announcement announcement)
+        {
+            var eventRoots = await eventRepository.AddAnnouncement(eventid, announcement);
+
+            return eventRoots;
+        }
+
+        public async Task<Event> UpdateEvent(Event @event)
+        {
+            var eventRoots = await eventRepository.UpdateEvent(@event);
+
+            return eventRoots;
+        }
+
+        public async Task<Announcement> UpdateAnnouncement(Guid eventid, Announcement announcement)
+        {
+            var eventRoots = await eventRepository.UpdateAnnouncement(eventid, announcement);
+
+            return eventRoots.Announcements.FirstOrDefault(x => x.Id == announcement.Id);
+        }
+
         public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
         {
             var eventRoots = await eventRepository.AddContent(event_guid, announcement_guid, content);

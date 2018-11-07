@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.DAL.Interfaces
 {
-    public interface IRegisterAggregateRoot
+    public interface IRegisterAggregateRepo
     {
-        Task<Register> RegisterAnnouncer(string email, Register registerDetails);
+        Task<Register> RegisterUser(Register registerDetails);
 
         Task<Register> GetRegisterAnnouncer(Guid guid);
 

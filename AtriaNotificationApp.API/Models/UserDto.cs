@@ -9,7 +9,7 @@ namespace AtriaNotificationApp.API.Models
         public string Password { get; set; }
         public string Token { get; set; }
         public string Department { get; set; }
-        public int Pno { get; set; }
+        public string Pno { get; set; }
         public string Role { get; set; }
     }
 }

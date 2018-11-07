@@ -10,7 +10,7 @@ namespace AtriaNotificationApp.BL.Services
     {
         Task RegisterAnnouncerAsync(string email, string role);
 
-        Task<Register> GetRegisterAnnouncerAsync(Guid guid);
+        Task<Register> GetRegisterUserAsync(Guid guid);
         Task RegisterContentWriterAsync(string email, string v, Guid announcerGuid);
 
         // Task<Register> CompleteRegisterAnnouncerAsync(User user);

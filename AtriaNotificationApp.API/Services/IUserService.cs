@@ -10,7 +10,7 @@ namespace AtriaNotificationApp.API.Services
     {
         Task<User> Authenticate(string email, string password);
         IEnumerable<UserDto> GetAll();
-        Task<string> checkIfUserExists(string email, int pno);
+        Task<string> checkIfUserExists(string email, string pno);
         Task<User> RegisterUser(User user);
         Task<User> GetUserAsync(Guid userid);
     }

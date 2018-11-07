@@ -9,5 +9,8 @@ namespace AtriaNotificationApp.DAL.Entities
         public string Email { get; set; }
 
         public string Role { get; set; }
+
+        public Guid ReportsTo { get; set; }
+
     }
 }

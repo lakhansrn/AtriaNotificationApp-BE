@@ -33,13 +33,6 @@ namespace AtriaNotificationApp.API.Services
             userRepository = new UserAggregateRepository();
         }
 
-        public bool asf(string s1, string s2)
-        {
-            var pwd = new PasswordService();
-            bool isVerified = pwd.VerifyHashedPassword(s1, s2);
-
-            return isVerified;
-        }
 
 /// <summary>
 /// 
@@ -50,6 +43,8 @@ namespace AtriaNotificationApp.API.Services
         public async Task<User> Authenticate(string email, string password)
         {
             var userDetails = await userRepository.Authenticate(email, password);
+            if (userDetails == null)
+                return null;
             User user = userDetails;
             var pwd = new PasswordService();
             var hashedPassword = user.Password;
@@ -104,6 +99,13 @@ namespace AtriaNotificationApp.API.Services
             user.Password = pwd.HashPassword(password);
             var userDetails = userRepository.RegisterUser(user);
             return userDetails;
+        }
+
+        public async Task<User> GetUserAsync(Guid userid)
+        {
+            var user = await userRepository.GetUserAsync(userid);
+            user.Password = null;
+            return user;
         }
     }
 }

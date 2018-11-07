@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AtriaNotificationApp.API.Models;
@@ -11,5 +12,6 @@ namespace AtriaNotificationApp.API.Services
         IEnumerable<UserDto> GetAll();
         Task<string> checkIfUserExists(string email, int pno);
         Task<User> RegisterUser(User user);
+        Task<User> GetUserAsync(Guid userid);
     }
 }

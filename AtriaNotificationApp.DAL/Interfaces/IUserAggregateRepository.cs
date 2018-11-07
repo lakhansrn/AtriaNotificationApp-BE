@@ -12,6 +12,8 @@ namespace AtriaNotificationApp.DAL.Interfaces
 
         Task<User> RegisterUser(User user);
 
+        Task<User> GetUserAsync(Guid userid);
+
         Task<User> Authenticate(string email, string password);
     }
 }

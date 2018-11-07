@@ -47,17 +47,44 @@ namespace AtriaNotificationApp.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("{userid}")]
+        public async Task<ActionResult<User>> GetUser(Guid userid)
+        {
+            if (Guid.Empty == userid && userid == null)
+            {
+                return BadRequest(new { message = "Empty guid" });
+            }
+
+            var user = await _userService.GetUserAsync(userid);
+            return user;
+        }
+
+        [AllowAnonymous]
         [HttpPost("register/announcer")]
         public async Task<ActionResult<Register>> RegisterAnnouncer(string email)
         {
-            if (email == null || email.Length == 0)
+            if (string.IsNullOrEmpty(email))
+            {
                 return BadRequest(new { message = "Invalid Request" });
-            var result = await registerService.RegisterAnnouncerAsync(email);
-            var toEmail = result.Email;
-            var id = result.Id;
-            var mail = new ValuesController();
-            mail.SendMail(new MailTestModel() { To = toEmail, Subject = "Announcer Registration", Body = $"Register using the following link https://atrianotifications.azurewebsites.net/announcerRegistration?id={id}" });
-            return Ok(result);
+            }
+           
+            await registerService.RegisterAnnouncerAsync(email, "announcer");
+        
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register/contentWriter")]
+        public async Task<ActionResult<Register>> RegisterContentWriter(string email, Guid announcerGuid)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest(new { message = "Invalid Request" });
+            }
+
+            await registerService.RegisterContentWriterAsync(email, "contentWriter", announcerGuid);
+
+            return Ok();
         }
 
         [AllowAnonymous]

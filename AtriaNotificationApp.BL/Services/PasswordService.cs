@@ -7,6 +7,7 @@ namespace AtriaNotificationApp.BL.Services
 {
     public class PasswordService: IPasswordService
     {
+
         public virtual string HashPassword(string password)
         {
             byte[] salt;

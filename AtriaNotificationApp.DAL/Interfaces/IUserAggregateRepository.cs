@@ -8,7 +8,7 @@ namespace AtriaNotificationApp.DAL.Interfaces
 {
     public interface IUserAggregateRepository
     {
-        Task<string> CheckIfUserExists(string email, int pno);
+        Task<string> CheckIfUserExists(string email, string pno);
 
         Task<User> RegisterUser(User user);
 

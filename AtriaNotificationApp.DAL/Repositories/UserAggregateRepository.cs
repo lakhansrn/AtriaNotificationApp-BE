@@ -10,15 +10,15 @@ namespace AtriaNotificationApp.DAL.Repositories
 {
     public class UserAggregateRepository: IUserAggregateRepository
     {
-        public async Task<string> CheckIfUserExists(string email, int pno)
+        public async Task<string> CheckIfUserExists(string email, string pno)
         {
             DocumentDBRepository<User> userRepo = new DocumentDBRepository<User>();
-            var users = await userRepo.GetItemsAsync(x => x.Email == email || x.Pno == pno);
+            var users = await userRepo.GetItemsAsync(x => x.Email == email || x.Pno.Equals(pno));
             foreach (var item in users)
             {
                 if (item.Email == email)
                     return "EMAIL_EXISTS";
-                else if (item.Pno == pno)
+                else if (item.Pno.Equals(pno))
                     return "PNO_EXISTS";
             }
             return null;

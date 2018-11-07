@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AtriaNotificationApp.API.Models;
 using AtriaNotificationApp.API.Settings;
+using AtriaNotificationApp.BL.Services;
 using AtriaNotificationApp.DAL.Entities;
 using AtriaNotificationApp.DAL.Interfaces;
 using AtriaNotificationApp.DAL.Repositories;
@@ -85,7 +86,7 @@ namespace AtriaNotificationApp.API.Services
             });
         }
 
-        public Task<string> checkIfUserExists(string email, int pno)
+        public Task<string> checkIfUserExists(string email, string pno)
         {
             var user = userRepository.CheckIfUserExists(email, pno);
 

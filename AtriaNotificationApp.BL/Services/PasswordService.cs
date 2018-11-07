@@ -1,16 +1,13 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
-using Microsoft.AspNetCore.Identity;
+using AtriaNotificationApp.BL.Interfaces;
 
-namespace AtriaNotificationApp.API.Services
+namespace AtriaNotificationApp.BL.Services
 {
-    public class PasswordService
+    public class PasswordService: IPasswordService
     {
-        
+
         public virtual string HashPassword(string password)
         {
             byte[] salt;
@@ -30,7 +27,7 @@ namespace AtriaNotificationApp.API.Services
             return Convert.ToBase64String(dst);
         }
 
-        
+
         public virtual bool VerifyHashedPassword(string hashedPassword, string password)
         {
             byte[] buffer4;

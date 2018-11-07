@@ -15,6 +15,8 @@ namespace AtriaNotificationApp.BL.Services
         private readonly IRegisterAggregateRepo registerAggregateRoot;
         private readonly IMailService mailService;
         private const string mailSubject = "Invitation for Atria Notification App";
+        private const string prodEndPoint = "https://atrianotifications.azurewebsites.net/announcerRegistration?id=";
+        private const string localEndPoint = "http://localhost:4200/announcerRegistration?id=";
 
         public RegisterService()
         {
@@ -36,7 +38,7 @@ namespace AtriaNotificationApp.BL.Services
             mailService.SendMail(new List<String>() { email }, mailSubject, GenerateMailBody(role, registerModel.Id.ToString()));
         }
 
-        public async Task<Register> GetRegisterAnnouncerAsync(Guid guid)
+        public async Task<Register> GetRegisterUserAsync(Guid guid)
         {
             return await registerAggregateRoot.GetRegisterAnnouncer(guid);
         }
@@ -51,7 +53,7 @@ namespace AtriaNotificationApp.BL.Services
             StringBuilder builder = new StringBuilder();
             builder.Append("<body>Hi, <br/> ");
             builder.Append($"It is our pleasure to state that you have been referred for being {role} of the new Notification App of Atria. Please follow the below link to complete the registration process.<br/><br/> ");
-            builder.Append($"https://atrianotifications.azurewebsites.net/announcerRegistration?id={guid} <br /><br/>For any support related to registration please reply back to the mail.<br/><br/> ");
+            builder.Append($"{prodEndPoint}{guid} <br /><br/>For any support related to registration please reply back to the mail.<br/><br/> ");
             builder.Append("Regards, <br/>Notification Support Team <br/>CS Department <br/>Atria</body> ");
 
             return builder.ToString();

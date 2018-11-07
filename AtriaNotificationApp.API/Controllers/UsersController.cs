@@ -75,8 +75,11 @@ namespace AtriaNotificationApp.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register/contentWriter")]
-        public async Task<ActionResult<Register>> RegisterContentWriter(string email, Guid announcerGuid)
+        public async Task<ActionResult<Register>> RegisterContentWriter([FromBody]ContentWriterRegistration form)
         {
+            var email = form.Email;
+            Guid announcerGuid = form.Id;
+
             if (string.IsNullOrEmpty(email))
             {
                 return BadRequest(new { message = "Invalid Request" });
@@ -88,18 +91,18 @@ namespace AtriaNotificationApp.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("register/announcer/{id}")]
-        public async Task<ActionResult<Register>> GetRegisterAnnouncer(Guid id)
+        [HttpGet("register/user/{id}")]
+        public async Task<ActionResult<Register>> GetRegisterUser(Guid id)
         {
             if (id.Equals(null))
                 return BadRequest(new { message = "Invalid Request" });
-            var result = await registerService.GetRegisterAnnouncerAsync(id);
+            var result = await registerService.GetRegisterUserAsync(id);
             return Ok(result);
         }
 
         [AllowAnonymous]
-        [HttpPost("complete_register/announcer")]
-        public async Task<ActionResult<Register>> CompleteRegisterAnnouncer(UserDto user)
+        [HttpPost("complete_register/user")]
+        public async Task<ActionResult<Register>> CompleteRegisterUser(UserDto user)
         {
             if (user == null)
                 return BadRequest(new { message = "Empty field" });

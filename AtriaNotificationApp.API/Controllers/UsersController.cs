@@ -29,9 +29,10 @@ namespace AtriaNotificationApp.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult> Authenticate([FromBody]User userParam)
+        public async Task<ActionResult> Authenticate([FromBody]LoginDto userParam )
         {
-            var user = await _userService.Authenticate(userParam.Email, userParam.Password);
+			
+			var user = await _userService.Authenticate(userParam.Email.ToLower(), userParam.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Email or password is incorrect" });
@@ -68,7 +69,7 @@ namespace AtriaNotificationApp.API.Controllers
                 return BadRequest(new { message = "Invalid Request" });
             }
            
-            await registerService.RegisterAnnouncerAsync(email, "announcer");
+            await registerService.RegisterAnnouncerAsync(email.ToLower(), "announcer");
         
             return Ok();
         }
@@ -85,7 +86,7 @@ namespace AtriaNotificationApp.API.Controllers
                 return BadRequest(new { message = "Invalid Request" });
             }
 
-            await registerService.RegisterContentWriterAsync(email, "contentWriter", announcerGuid);
+            await registerService.RegisterContentWriterAsync(email.ToLower(), "contentWriter", announcerGuid);
 
             return Ok();
         }

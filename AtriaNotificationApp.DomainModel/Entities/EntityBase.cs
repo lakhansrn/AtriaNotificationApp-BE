@@ -14,5 +14,9 @@ namespace AtriaNotificationApp.DAL.Entities
                 Id= Guid.NewGuid();
             }
         }
+
+        public DateTime? DateModifiedOn { get; set; }
+
+        public DateTime? DateCreatedOn { get; set; }
     }
 }

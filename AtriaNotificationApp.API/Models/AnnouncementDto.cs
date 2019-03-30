@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.API.Models
 {
-    public class AnnouncementDto
+    public class AnnouncementDto : DateTrackDtoBase
     {
         public AnnouncementDto()
         {

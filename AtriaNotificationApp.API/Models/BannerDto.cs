@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.API.Models
 {
-    public class BannerDto
+    public class BannerDto : DateTrackDtoBase
     {
         [JsonProperty("img")]
         public string ImageUrl { get; set; }    
@@ -15,6 +15,8 @@ namespace AtriaNotificationApp.API.Models
         public string Title { get; set; }      
 
         [JsonProperty("id")]
-        public int ID { get; set; }      
+        public int ID { get; set; }
+
+      
     }
 }

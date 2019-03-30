@@ -10,11 +10,15 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.DAL.Repositories
 {
+    //TODO- From Lakhan : Improve this class, lot of duplicate and unnecessary code
     public class EventAggregateRepository : IEventAggregateRepository
     {
         public async Task<Event> AddEvent(Event @event)
         {
             @event.InitId();
+            @event.DateCreatedOn = DateTime.UtcNow;
+            @event.DateModifiedOn = DateTime.UtcNow;
+
             @event.Announcements.ForEach(x=>{x.InitId();
             x.Content.ForEach(y => y.InitId());
             });
@@ -29,6 +33,9 @@ namespace AtriaNotificationApp.DAL.Repositories
             foreach (var @event in events)
             {
                 @event.InitId();
+                @event.DateCreatedOn = DateTime.UtcNow;
+                @event.DateModifiedOn = DateTime.UtcNow;
+
                 @event.Announcements
                 .ForEach(x=>{x.InitId();
                              x.Content.ForEach(y => y.InitId());
@@ -46,6 +53,8 @@ namespace AtriaNotificationApp.DAL.Repositories
 
             Event event1 = await eventRepo.GetItemAsync(eventid);
             announcement.InitId();
+            announcement.DateCreatedOn = DateTime.UtcNow;
+            announcement.DateModifiedOn = DateTime.UtcNow;
 
             event1.Announcements.Add(announcement);
 
@@ -78,17 +87,18 @@ namespace AtriaNotificationApp.DAL.Repositories
         {
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
 
-            Event event1 = await eventRepo.GetItemAsync(@event.Id);
+                Event dbEvent = await eventRepo.GetItemAsync(@event.Id);
 
 
-            event1.EventName = @event.EventName;
-            event1.EventBanner = @event.EventBanner;
-            event1.Description = @event.Description;
-            event1.ShowAsBanner = @event.ShowAsBanner;
+                dbEvent.EventName = @event.EventName;
+                dbEvent.EventBanner = @event.EventBanner;
+                dbEvent.Description = @event.Description;
+                dbEvent.ShowAsBanner = @event.ShowAsBanner;
+                dbEvent.DateModifiedOn = DateTime.UtcNow;
 
-            Event updatedEvent = await eventRepo.UpdateItemAsync(event1.Id, event1);
+                Event updatedEvent = await eventRepo.UpdateItemAsync(dbEvent.Id, dbEvent);
 
-            return updatedEvent;
+                return updatedEvent;
         }
 
         public async Task<Event> UpdateAnnouncement(Guid eventid, Announcement announcement)
@@ -98,16 +108,19 @@ namespace AtriaNotificationApp.DAL.Repositories
 
             events = await eventRepo.GetItemsAsync(x => x.Id == eventid);
 
-            Event to_be_updated_event = events.FirstOrDefault(x => x.Id == eventid);
+            Event toBeUpdatedEvent = events.FirstOrDefault(x => x.Id == eventid);
 
-            Announcement tobeUpdatedAnnouncement = to_be_updated_event.Announcements.FirstOrDefault(x => x.Id == announcement.Id);
+            toBeUpdatedEvent.DateModifiedOn = DateTime.UtcNow;
+
+            Announcement tobeUpdatedAnnouncement = toBeUpdatedEvent.Announcements.FirstOrDefault(x => x.Id == announcement.Id);
             tobeUpdatedAnnouncement.Title = announcement.Title;
             tobeUpdatedAnnouncement.PostedDate = DateTime.Now;
             tobeUpdatedAnnouncement.Img = announcement.Img;
             tobeUpdatedAnnouncement.Description = announcement.Description;
+            tobeUpdatedAnnouncement.DateModifiedOn = DateTime.UtcNow;
 
-            to_be_updated_event.Announcements.FirstOrDefault(x => x.Id == announcement.Id).Equals(tobeUpdatedAnnouncement);
-            Event updatedEvent = await eventRepo.UpdateItemAsync(to_be_updated_event.Id, to_be_updated_event);
+            toBeUpdatedEvent.Announcements.FirstOrDefault(x => x.Id == announcement.Id).Equals(tobeUpdatedAnnouncement);
+            Event updatedEvent = await eventRepo.UpdateItemAsync(toBeUpdatedEvent.Id, toBeUpdatedEvent);
 
             return updatedEvent;
         }
@@ -124,57 +137,69 @@ namespace AtriaNotificationApp.DAL.Repositories
             catch (Exception m)
             {
                 Console.WriteLine(m.Message);
-                return null;
+                throw;
             }            
         }
 
+        //TODO: From -> Lakhan : Check if the below implementation is right or not . Is there any unused code??
         public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
         {
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
             try
             {
-                var event1 = await eventRepo.GetItemAsync(event_guid); 
+                var dbEvents = await eventRepo.GetItemAsync(event_guid); 
                 
                 List<Announcement> updated_announcement = new List<Announcement>();
 
-                foreach (var announcement in event1.Announcements)
+                foreach (var announcement in dbEvents.Announcements)
                 {
                     if (announcement.Id == announcement_guid)
                     {                       
-                        List<Content> updated_content = announcement.Content.Append(new Content() { Description = content.Description, Id = Guid.NewGuid(), Image = content.Image, IsActive = content.IsActive, IsApproved = content.IsApproved, Posted = DateTime.Now, PostedBy = content.PostedBy, Title = content.Title }).ToList();    
-                        updated_announcement.Add(new Announcement() { Content = updated_content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                        List<Content> updated_content = announcement.Content.Append(new Content()
+                                                        { Description = content.Description, Id = Guid.NewGuid(), Image = content.Image,
+                                                            IsActive = content.IsActive, IsApproved = content.IsApproved, Posted = DateTime.Now,
+                                                            PostedBy = content.PostedBy, Title = content.Title,
+                                                            DateCreatedOn=DateTime.UtcNow,
+                                                            DateModifiedOn=DateTime.UtcNow}).ToList();    
+                        updated_announcement.Add(new Announcement() { Content = updated_content,
+                                                                      Description = announcement.Description, Id = announcement.Id, Img = announcement.Img,
+                                                                      PostedDate = announcement.PostedDate, Title = announcement.Title,DateCreatedOn=announcement.DateCreatedOn,DateModifiedOn=DateTime.UtcNow });
                     }
                     else
                     {
-                        updated_announcement.Add(new Announcement() { Content = announcement.Content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                        updated_announcement.Add(new Announcement() { Content = announcement.Content, Description = announcement.Description, Id = announcement.Id,
+                            Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title,
+                            DateCreatedOn = announcement.DateCreatedOn,
+                            DateModifiedOn = DateTime.UtcNow
+                        });
                     }
                 }
 
-                event1.Announcements = updated_announcement;
+                dbEvents.Announcements = updated_announcement;
 
-                var res = eventRepo.UpdateItemAsync(event_guid, event1);
+                var res = eventRepo.UpdateItemAsync(event_guid, dbEvents);
 
                 return await res;
             }
             catch (Exception m)
             {
                 Console.WriteLine(m.Message);
-                return null;
+                throw;
             }
         }
 
         public async Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content)
         {
             DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
+            content.DateModifiedOn = DateTime.UtcNow;
+
             try
             {
-                var event1 = await eventRepo.GetItemAsync(event_guid);
+                var dbEvent = await eventRepo.GetItemAsync(event_guid);
 
                 List<Announcement> updated_announcement = new List<Announcement>();
 
-                foreach (var announcement in event1.Announcements)
+                foreach (var announcement in dbEvent.Announcements)
                 {
                     if (announcement.Id == announcement_guid)
                     {
@@ -190,24 +215,30 @@ namespace AtriaNotificationApp.DAL.Repositories
                                 updated_content.Add(dbcontent);
                             }
                         }
-                        updated_announcement.Add(new Announcement() { Content = updated_content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                        updated_announcement.Add(new Announcement() { Content = updated_content, Description = announcement.Description, Id = announcement.Id,
+                            Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title,DateCreatedOn=announcement.DateCreatedOn,DateModifiedOn=DateTime.UtcNow });
                     }
                     else
                     {
-                        updated_announcement.Add(new Announcement() { Content = announcement.Content, Description = announcement.Description, Id = announcement.Id, Img = announcement.Img, PostedDate = announcement.PostedDate, Title = announcement.Title });
+                        updated_announcement.Add(new Announcement() { Content = announcement.Content,
+                            Description = announcement.Description, Id = announcement.Id, Img = announcement.Img,
+                            PostedDate = announcement.PostedDate, Title = announcement.Title,
+                            DateCreatedOn = announcement.DateCreatedOn,
+                            DateModifiedOn = DateTime.UtcNow
+                        });
                     }
                 }
 
-                event1.Announcements = updated_announcement;
+                dbEvent.Announcements = updated_announcement;
 
-                var res = eventRepo.UpdateItemAsync(event_guid, event1);
+                var res = eventRepo.UpdateItemAsync(event_guid, dbEvent);
 
                 return await res;
             }
             catch (Exception m)
             {
                 Console.WriteLine(m.Message);
-                return null;
+                throw;
             }
         }
     }

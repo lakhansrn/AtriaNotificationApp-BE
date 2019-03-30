@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.API.Models
 {
-    public class EventDto
+    public class EventDto : DateTrackDtoBase
     {
         public EventDto()
         {
@@ -26,5 +26,6 @@ namespace AtriaNotificationApp.API.Models
         public string Description { get; set; }
 
         public bool ShowAsBanner { get; set; }
+
     }
 }

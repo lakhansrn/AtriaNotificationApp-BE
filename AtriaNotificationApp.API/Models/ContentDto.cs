@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.API.Models
 {
-    public class ContentDto
+    public class ContentDto : DateTrackDtoBase
     {
         public ContentDto()
         {

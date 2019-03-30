@@ -241,5 +241,12 @@ namespace AtriaNotificationApp.DAL.Repositories
                 throw;
             }
         }
+
+        public async Task DeleteEvent(Guid eventGuid)
+        {
+            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+
+            await eventRepo.DeleteItemAsync(eventGuid);
+        }
     }
 }

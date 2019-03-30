@@ -71,5 +71,10 @@ namespace AtriaNotificationApp.BL.Services
         {
             return await eventRepository.AddEvents(events);
         }
+
+        public async Task DeleteEvent(Guid guid)
+        {
+            await eventRepository.DeleteEvent(guid);
+        }
     }
 }

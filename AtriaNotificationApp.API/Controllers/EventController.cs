@@ -39,6 +39,13 @@ namespace AtriaNotificationApp.API.Controllers
             return eventDtos;
         }
 
+        // Delete api/values
+        [HttpDelete]
+        public async Task Delete(Guid guid)
+        {
+            await eventProviderService.DeleteEvent(guid);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Event>> Add(EventDto item)
         {

@@ -25,5 +25,7 @@ namespace AtriaNotificationApp.DAL.Interfaces
         Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content);
 
         Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content);
+
+        Task DeleteEvent(Guid eventGuid);
     }
 }

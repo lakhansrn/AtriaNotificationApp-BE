@@ -20,6 +20,8 @@ namespace AtriaNotificationApp.DAL.Entities
         public string Description { get; set; }
 
         public DateTime PostedDate { get; set; }
-        
+
+        public DateTime? DateSchedule { get; set; }
+
     }
 }

@@ -23,6 +23,8 @@ namespace AtriaNotificationApp.DAL.Entities
 
         public bool ShowAsBanner { get; set; }
 
+        public DateTime? DateSchedule { get; set; }
+
         // private IEnumerator GetEnumerator()
         // {
         //     List<Event> events = new List<Event>();

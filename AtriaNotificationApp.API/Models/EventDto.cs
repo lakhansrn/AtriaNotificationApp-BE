@@ -27,5 +27,7 @@ namespace AtriaNotificationApp.API.Models
 
         public bool ShowAsBanner { get; set; }
 
+        public DateTime? DateSchedule { get; set; }
+
     }
 }

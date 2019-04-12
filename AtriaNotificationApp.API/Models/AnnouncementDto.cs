@@ -24,6 +24,8 @@ namespace AtriaNotificationApp.API.Models
         [JsonProperty("posted")]
         public DateTime PostedDate { get; set; }
 
+        public DateTime? DateSchedule { get; set; }
+
         //public List<ContentDto> Content { get; set; }
 
     }

@@ -95,6 +95,7 @@ namespace AtriaNotificationApp.DAL.Repositories
                 dbEvent.Description = @event.Description;
                 dbEvent.ShowAsBanner = @event.ShowAsBanner;
                 dbEvent.DateModifiedOn = DateTime.UtcNow;
+                dbEvent.DateSchedule = @event.DateSchedule;
 
                 Event updatedEvent = await eventRepo.UpdateItemAsync(dbEvent.Id, dbEvent);
 
@@ -118,6 +119,7 @@ namespace AtriaNotificationApp.DAL.Repositories
             tobeUpdatedAnnouncement.Img = announcement.Img;
             tobeUpdatedAnnouncement.Description = announcement.Description;
             tobeUpdatedAnnouncement.DateModifiedOn = DateTime.UtcNow;
+            tobeUpdatedAnnouncement.DateSchedule = announcement.DateSchedule;
 
             toBeUpdatedEvent.Announcements.FirstOrDefault(x => x.Id == announcement.Id).Equals(tobeUpdatedAnnouncement);
             Event updatedEvent = await eventRepo.UpdateItemAsync(toBeUpdatedEvent.Id, toBeUpdatedEvent);

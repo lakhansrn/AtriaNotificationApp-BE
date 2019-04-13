@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AtriaNotificationApp.API.Models
 {
-    public class EventDto : DateTrackDtoBase
+    public class BoardDto : DateTrackDtoBase
     {
-        public EventDto()
+        public BoardDto()
         {
             Announcements = new List<AnnouncementDto>();
         }
@@ -17,11 +17,11 @@ namespace AtriaNotificationApp.API.Models
 
         public List<AnnouncementDto> Announcements { get; set; }
 
-        [JsonProperty("event_name")]
-        public string EventName { get; set; }
+        [JsonProperty("board_name")]
+        public string BoardName { get; set; }
 
-        [JsonProperty("event_banner")]
-        public string EventBanner { get; set; }
+        [JsonProperty("board_banner")]
+        public string BoardBanner { get; set; }
 
         public string Description { get; set; }
 

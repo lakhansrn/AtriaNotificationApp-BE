@@ -5,19 +5,19 @@ using System.Text;
 
 namespace AtriaNotificationApp.DAL.Entities
 {
-    public class EventAggregateRoot : IAggregateRoot
+    public class BoardAggregateRoot : IAggregateRoot
     {
 
-        public EventAggregateRoot(Event @event)
+        public BoardAggregateRoot(Board board)
         {
-            if(@event == null)
+            if(board == null)
             {
-                throw new InvalidOperationException("Event cannot be null ofr the root");
+                throw new InvalidOperationException("Board cannot be null ofr the root");
             }
-            this.Event = @event;
+            this.Board = board;
         }
 
-        public Event Event
+        public Board Board
         {
             get;
             private set;

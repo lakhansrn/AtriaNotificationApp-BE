@@ -4,12 +4,12 @@ using AutoMapper;
 
 namespace AtriaNotificationApp.API.Profiles
 {
-    public class EventProfile : Profile
+    public class BoardProfile : Profile
     {
-        public EventProfile()
+        public BoardProfile()
         {
-             CreateMap<Event,EventDto>();
-             CreateMap<EventDto,Event>();
+             CreateMap<Board,BoardDto>();
+             CreateMap<BoardDto,Board>();
              CreateMap<Announcement,AnnouncementDto>();
              CreateMap<AnnouncementDto,Announcement>();
              CreateMap<Content,ContentDto>();

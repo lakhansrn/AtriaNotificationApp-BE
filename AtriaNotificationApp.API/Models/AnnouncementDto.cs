@@ -28,5 +28,7 @@ namespace AtriaNotificationApp.API.Models
 
         //public List<ContentDto> Content { get; set; }
 
+        public bool ShowAsBanner { get; set; }
+
     }
 }

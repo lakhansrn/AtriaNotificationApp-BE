@@ -23,5 +23,7 @@ namespace AtriaNotificationApp.DAL.Entities
 
         public DateTime? DateSchedule { get; set; }
 
+        public bool ShowAsBanner { get; set; }
+
     }
 }

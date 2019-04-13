@@ -14,18 +14,18 @@ namespace AtriaNotificationApp.API.Controllers
     [ApiController]
     public class BannerController : ControllerBase
     {
-        private readonly IEventProviderService eventProviderService;
+        private readonly IBoardProviderService boardProviderService;
 
         public BannerController()
         {
-            eventProviderService = new EventProviderService();
+            boardProviderService = new BoardProviderService();
         }
 
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BannerDto>>> Get()
         {
-            var events = await eventProviderService.GetAllValidEvents();
+            var events = await boardProviderService.GetAllValidBoards();
 
             var bannerDtos = new List<BannerDto>();
             var count = 0;
@@ -34,8 +34,8 @@ namespace AtriaNotificationApp.API.Controllers
             {
                 bannerDtos.Add(new BannerDto()
                 {
-                    ImageUrl = item.EventBanner,
-                    Title = item.EventName,
+                    ImageUrl = item.BoardBanner,
+                    Title = item.BoardName,
                     ID = count++
                 });
             }

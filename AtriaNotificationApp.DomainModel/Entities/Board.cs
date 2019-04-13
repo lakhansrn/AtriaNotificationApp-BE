@@ -5,9 +5,9 @@ using System.Text;
 
 namespace AtriaNotificationApp.DAL.Entities
 {
-    public class Event : EntityBase
+    public class Board : EntityBase
     {
-        public Event()
+        public Board()
         {
             Announcements = new List<Announcement>();
         }
@@ -15,9 +15,9 @@ namespace AtriaNotificationApp.DAL.Entities
 
         public List<Announcement> Announcements { get; set; }
 
-        public string EventName { get; set; }
+        public string BoardName { get; set; }
 
-        public string EventBanner { get; set; }
+        public string BoardBanner { get; set; }
 
         public string Description { get; set; }
 
@@ -27,7 +27,7 @@ namespace AtriaNotificationApp.DAL.Entities
 
         // private IEnumerator GetEnumerator()
         // {
-        //     List<Event> events = new List<Event>();
+        //     List<Board> events = new List<Board>();
         //     foreach (var item in events)
         //     {
         //         yield return item;

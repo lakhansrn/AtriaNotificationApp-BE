@@ -11,109 +11,109 @@ using System.Threading.Tasks;
 namespace AtriaNotificationApp.DAL.Repositories
 {
     //TODO- From Lakhan : Improve this class, lot of duplicate and unnecessary code
-    public class EventAggregateRepository : IEventAggregateRepository
+    public class BoardAggregateRepository : IBoardAggregateRepository
     {
-        public async Task<Event> AddEvent(Event @event)
+        public async Task<Board> AddBoard(Board board)
         {
-            @event.InitId();
-            @event.DateCreatedOn = DateTime.UtcNow;
-            @event.DateModifiedOn = DateTime.UtcNow;
+            board.InitId();
+            board.DateCreatedOn = DateTime.UtcNow;
+            board.DateModifiedOn = DateTime.UtcNow;
 
-            @event.Announcements.ForEach(x=>{x.InitId();
+            board.Announcements.ForEach(x=>{x.InitId();
             x.Content.ForEach(y => y.InitId());
             });
 
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            var result =  await eventRepo.CreateItemAsync(@event);
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
+            var result =  await boardRepo.CreateItemAsync(board);
             return result;
         }
 
-        public async Task<IEnumerable<Event>> AddEvents(IEnumerable<Event> events)
+        public async Task<IEnumerable<Board>> AddBoards(IEnumerable<Board> boards)
         {
-            foreach (var @event in events)
+            foreach (var board in boards)
             {
-                @event.InitId();
-                @event.DateCreatedOn = DateTime.UtcNow;
-                @event.DateModifiedOn = DateTime.UtcNow;
+                board.InitId();
+                board.DateCreatedOn = DateTime.UtcNow;
+                board.DateModifiedOn = DateTime.UtcNow;
 
-                @event.Announcements
+                board.Announcements
                 .ForEach(x=>{x.InitId();
                              x.Content.ForEach(y => y.InitId());
                             });
             }
 
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            var result =  await eventRepo.CreateItemsAsync(events);
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
+            var result =  await boardRepo.CreateItemsAsync(boards);
             return result;
         }
 
-        public async Task<Event> AddAnnouncement(Guid eventid, Announcement announcement)
+        public async Task<Board> AddAnnouncement(Guid boardid, Announcement announcement)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
 
-            Event event1 = await eventRepo.GetItemAsync(eventid);
+            Board board1 = await boardRepo.GetItemAsync(boardid);
             announcement.InitId();
             announcement.DateCreatedOn = DateTime.UtcNow;
             announcement.DateModifiedOn = DateTime.UtcNow;
 
-            event1.Announcements.Add(announcement);
+            board1.Announcements.Add(announcement);
 
-            var result = await eventRepo.UpdateItemAsync(eventid, event1);
+            var result = await boardRepo.UpdateItemAsync(boardid, board1);
             return result;
         }
 
-        public async Task<IEnumerable<EventAggregateRoot>> GetAllEventRoots()
+        public async Task<IEnumerable<BoardAggregateRoot>> GetAllBoardRoots()
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
+            ICollection<BoardAggregateRoot> roots = new List<BoardAggregateRoot>();
             try
             {
-                var events = await eventRepo.GetItemsAsync();
-                foreach (var item in events)
+                var boards = await boardRepo.GetItemsAsync();
+                foreach (var item in boards)
                 {
-                    roots.Add(new EventAggregateRoot(item));
+                    roots.Add(new BoardAggregateRoot(item));
                 }
                 return roots;
             }
             catch (Exception m)
             {
-                List<EventAggregateRoot> noRootFound = new List<EventAggregateRoot>();
+                List<BoardAggregateRoot> noRootFound = new List<BoardAggregateRoot>();
                 Console.WriteLine(m.Message);
                 return noRootFound;
             }
         }
 
-        public async Task<Event> UpdateEvent(Event @event)
+        public async Task<Board> UpdateBoard(Board board)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
 
-                Event dbEvent = await eventRepo.GetItemAsync(@event.Id);
+                Board dbBoard = await boardRepo.GetItemAsync(board.Id);
 
 
-                dbEvent.EventName = @event.EventName;
-                dbEvent.EventBanner = @event.EventBanner;
-                dbEvent.Description = @event.Description;
-                dbEvent.ShowAsBanner = @event.ShowAsBanner;
-                dbEvent.DateModifiedOn = DateTime.UtcNow;
-                dbEvent.DateSchedule = @event.DateSchedule;
+                dbBoard.BoardName = board.BoardName;
+                dbBoard.BoardBanner = board.BoardBanner;
+                dbBoard.Description = board.Description;
+                dbBoard.ShowAsBanner = board.ShowAsBanner;
+                dbBoard.DateModifiedOn = DateTime.UtcNow;
+                dbBoard.DateSchedule = board.DateSchedule;
 
-                Event updatedEvent = await eventRepo.UpdateItemAsync(dbEvent.Id, dbEvent);
+                Board updatedBoard = await boardRepo.UpdateItemAsync(dbBoard.Id, dbBoard);
 
-                return updatedEvent;
+                return updatedBoard;
         }
 
-        public async Task<Event> UpdateAnnouncement(Guid eventid, Announcement announcement)
+        public async Task<Board> UpdateAnnouncement(Guid boardid, Announcement announcement)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            IEnumerable<Event> events = new List<Event>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
+            IEnumerable<Board> boards = new List<Board>();
 
-            events = await eventRepo.GetItemsAsync(x => x.Id == eventid);
+            boards = await boardRepo.GetItemsAsync(x => x.Id == boardid);
 
-            Event toBeUpdatedEvent = events.FirstOrDefault(x => x.Id == eventid);
+            Board toBeUpdatedBoard = boards.FirstOrDefault(x => x.Id == boardid);
 
-            toBeUpdatedEvent.DateModifiedOn = DateTime.UtcNow;
+            toBeUpdatedBoard.DateModifiedOn = DateTime.UtcNow;
 
-            Announcement tobeUpdatedAnnouncement = toBeUpdatedEvent.Announcements.FirstOrDefault(x => x.Id == announcement.Id);
+            Announcement tobeUpdatedAnnouncement = toBeUpdatedBoard.Announcements.FirstOrDefault(x => x.Id == announcement.Id);
             tobeUpdatedAnnouncement.Title = announcement.Title;
             tobeUpdatedAnnouncement.PostedDate = DateTime.Now;
             tobeUpdatedAnnouncement.Img = announcement.Img;
@@ -121,20 +121,20 @@ namespace AtriaNotificationApp.DAL.Repositories
             tobeUpdatedAnnouncement.DateModifiedOn = DateTime.UtcNow;
             tobeUpdatedAnnouncement.DateSchedule = announcement.DateSchedule;
 
-            toBeUpdatedEvent.Announcements.FirstOrDefault(x => x.Id == announcement.Id).Equals(tobeUpdatedAnnouncement);
-            Event updatedEvent = await eventRepo.UpdateItemAsync(toBeUpdatedEvent.Id, toBeUpdatedEvent);
+            toBeUpdatedBoard.Announcements.FirstOrDefault(x => x.Id == announcement.Id).Equals(tobeUpdatedAnnouncement);
+            Board updatedBoard = await boardRepo.UpdateItemAsync(toBeUpdatedBoard.Id, toBeUpdatedBoard);
 
-            return updatedEvent;
+            return updatedBoard;
         }
 
-        public async Task<EventAggregateRoot> GetEventsByAnnouncmentID(Guid guid)
+        public async Task<BoardAggregateRoot> GetBoardsByAnnouncmentID(Guid guid)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
-            ICollection<EventAggregateRoot> roots = new List<EventAggregateRoot>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
+            ICollection<BoardAggregateRoot> roots = new List<BoardAggregateRoot>();
             try
             {
-                var events = await eventRepo.GetItemsAsync(x => x.Announcements.Any(y => y.Id == guid));
-                return new EventAggregateRoot(events.FirstOrDefault());
+                var boards = await boardRepo.GetItemsAsync(x => x.Announcements.Any(y => y.Id == guid));
+                return new BoardAggregateRoot(boards.FirstOrDefault());
             }
             catch (Exception m)
             {
@@ -144,16 +144,16 @@ namespace AtriaNotificationApp.DAL.Repositories
         }
 
         //TODO: From -> Lakhan : Check if the below implementation is right or not . Is there any unused code??
-        public async Task<Event> AddContent(Guid event_guid, Guid announcement_guid, Content content)
+        public async Task<Board> AddContent(Guid board_guid, Guid announcement_guid, Content content)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
             try
             {
-                var dbEvents = await eventRepo.GetItemAsync(event_guid); 
+                var dbBoards = await boardRepo.GetItemAsync(board_guid); 
                 
                 List<Announcement> updated_announcement = new List<Announcement>();
 
-                foreach (var announcement in dbEvents.Announcements)
+                foreach (var announcement in dbBoards.Announcements)
                 {
                     if (announcement.Id == announcement_guid)
                     {                       
@@ -177,9 +177,9 @@ namespace AtriaNotificationApp.DAL.Repositories
                     }
                 }
 
-                dbEvents.Announcements = updated_announcement;
+                dbBoards.Announcements = updated_announcement;
 
-                var res = eventRepo.UpdateItemAsync(event_guid, dbEvents);
+                var res = boardRepo.UpdateItemAsync(board_guid, dbBoards);
 
                 return await res;
             }
@@ -190,18 +190,18 @@ namespace AtriaNotificationApp.DAL.Repositories
             }
         }
 
-        public async Task<Event> UpdateContent(Guid event_guid, Guid announcement_guid, Guid content_id, Content content)
+        public async Task<Board> UpdateContent(Guid board_guid, Guid announcement_guid, Guid content_id, Content content)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
             content.DateModifiedOn = DateTime.UtcNow;
 
             try
             {
-                var dbEvent = await eventRepo.GetItemAsync(event_guid);
+                var dbBoard = await boardRepo.GetItemAsync(board_guid);
 
                 List<Announcement> updated_announcement = new List<Announcement>();
 
-                foreach (var announcement in dbEvent.Announcements)
+                foreach (var announcement in dbBoard.Announcements)
                 {
                     if (announcement.Id == announcement_guid)
                     {
@@ -231,9 +231,9 @@ namespace AtriaNotificationApp.DAL.Repositories
                     }
                 }
 
-                dbEvent.Announcements = updated_announcement;
+                dbBoard.Announcements = updated_announcement;
 
-                var res = eventRepo.UpdateItemAsync(event_guid, dbEvent);
+                var res = boardRepo.UpdateItemAsync(board_guid, dbBoard);
 
                 return await res;
             }
@@ -244,11 +244,11 @@ namespace AtriaNotificationApp.DAL.Repositories
             }
         }
 
-        public async Task DeleteEvent(Guid eventGuid)
+        public async Task DeleteBoard(Guid boardGuid)
         {
-            DocumentDBRepository<Event> eventRepo = new DocumentDBRepository<Event>();
+            DocumentDBRepository<Board> boardRepo = new DocumentDBRepository<Board>();
 
-            await eventRepo.DeleteItemAsync(eventGuid);
+            await boardRepo.DeleteItemAsync(boardGuid);
         }
     }
 }

@@ -96,6 +96,8 @@ namespace AtriaNotificationApp.DAL.Repositories
                 dbBoard.ShowAsBanner = board.ShowAsBanner;
                 dbBoard.DateModifiedOn = DateTime.UtcNow;
                 dbBoard.DateSchedule = board.DateSchedule;
+                dbBoard.IsFixed = board.IsFixed;
+                dbBoard.Order = board.Order;
 
                 Board updatedBoard = await boardRepo.UpdateItemAsync(dbBoard.Id, dbBoard);
 

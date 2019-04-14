@@ -29,5 +29,9 @@ namespace AtriaNotificationApp.API.Models
 
         public DateTime? DateSchedule { get; set; }
 
+        public bool IsFixed { get; set; }
+
+        public int Order { get; set; }
+
     }
 }

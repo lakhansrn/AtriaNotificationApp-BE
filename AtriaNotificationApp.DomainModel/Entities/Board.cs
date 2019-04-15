@@ -33,5 +33,9 @@ namespace AtriaNotificationApp.DAL.Entities
         //         yield return item;
         //     }
         // }
+
+        public bool IsFixed { get; set; }
+
+        public int Order { get; set; }
     }
 }

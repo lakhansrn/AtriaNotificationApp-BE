@@ -39,6 +39,18 @@ namespace AtriaNotificationApp.API.Controllers
             return boardDtos;
         }
 
+        [HttpGet("FixedBoards")]
+        public async Task<ActionResult<IEnumerable<BoardDto>>> GetFixedBoards()
+        {
+            var boards = await boardProviderService.GetAllValidBoards();
+
+            List<BoardDto> boardDtos = _mapper.Map<List<BoardDto>>(boards);
+
+            List<BoardDto> orderedBoards =  boardDtos.Where(board => board.IsFixed).OrderBy(x => x.Order).ToList();
+
+            return orderedBoards;
+        }
+
         // Delete api/values
         [HttpDelete]
         public async Task Delete(Guid guid)

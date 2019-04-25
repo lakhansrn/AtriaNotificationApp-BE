@@ -12,7 +12,7 @@ namespace AtriaNotificationApp.Common.Services
         public void SendMail(IEnumerable<string> to, string subject, string body)
         {
             MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                SmtpClient SmtpServer = new SmtpClient();
  
                 mail.From = new MailAddress(emailFrom);
 
@@ -27,10 +27,13 @@ namespace AtriaNotificationApp.Common.Services
                 //Attachment attachment = new Attachment(filename);
                 //mail.Attachments.Add(attachment);
  
-                SmtpServer.Port = 25;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(emailFrom, password);
+                SmtpServer.Port = 587;
+                SmtpServer.Host = "smtp.gmail.com";
                 SmtpServer.EnableSsl = true;
- 
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(emailFrom, password);
+
                 SmtpServer.Send(mail);
         }
     }

@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using WebPush;
 
 namespace AtriaNotificationApp.API
 {
@@ -70,6 +71,13 @@ namespace AtriaNotificationApp.API
             services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var vapidDetails = new VapidDetails(
+                Configuration.GetValue<string>("VapidDetails:Subject"),
+                Configuration.GetValue<string>("VapidDetails:PublicKey"),
+                Configuration.GetValue<string>("VapidDetails:PrivateKey"));
+            services.AddTransient(c => vapidDetails);
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
